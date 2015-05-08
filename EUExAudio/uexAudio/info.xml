@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+    <plugin
+        uexName="uexAudio" version="3.0.8" build="8">
+        <info>8:使用音频界面录制音频支持mp3格式</info>
+        <build>7:修复第二次录制MP3时录制CAF的BUG</build>
+        <build>6:修复播放网络音频没有回调的问题，修复播放网络音频无法循环播放的问题</build>
+        <build>5:uexAudio更新libopencore-amrnb.a,libopencore-amrwb.a,libmp3lame.a,支持arm64</build>
+        <build>4:uexAudio插件录音文件名称与文档统一</build>
+        <build>3:后台录音添加录音格式MP3</build>
+        <build>1:音乐播放插件,修改使用听筒音的BUG</build>
+    </plugin>
+</uexplugins>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/plugin3.0_ios/!svn/ver/1655/trunk/code/public/EUExAudio/EUExAudio/sourceCode/speakhere/opencore
+END
+build-amr.sh
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/plugin3.0_ios/!svn/ver/54/trunk/code/public/EUExAudio/EUExAudio/sourceCode/speakhere/opencore/build-amr.sh
+END
+libopencore-amrwb.a
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/plugin3.0_ios/!svn/ver/1655/trunk/code/public/EUExAudio/EUExAudio/sourceCode/speakhere/opencore/libopencore-amrwb.a
+END
+libopencore-amrnb.a
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/plugin3.0_ios/!svn/ver/1655/trunk/code/public/EUExAudio/EUExAudio/sourceCode/speakhere/opencore/libopencore-amrnb.a
+END

@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode
+END
+RecorderMp3Controller.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderMp3Controller.h
+END
+MusicPlayerViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/MusicPlayerViewController.h
+END
+RecorderMp3Controller.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderMp3Controller.m
+END
+MusicPlayerViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/MusicPlayerViewController.m
+END
+Recorder.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/Recorder.h
+END
+RecorderController.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderController.h
+END
+RecorderAmrController.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderAmrController.h
+END
+Recorder.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/Recorder.m
+END
+MusicListViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/MusicListViewController.h
+END
+PMusicPlayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/PMusicPlayer.h
+END
+RecorderController.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderController.m
+END
+RecorderAmrController.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/plugin3.0_ios/!svn/ver/2047/trunk/code/public/EUExAudio/EUExAudio/sourceCode/RecorderAmrController.m
+END
+MusicListViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/MusicListViewController.m
+END
+PMusicPlayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/PMusicPlayer.m
+END
+PFMusicPlayer.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/PFMusicPlayer.h
+END
+PFMusicPlayer.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/plugin3.0_ios/!svn/ver/1225/trunk/code/public/EUExAudio/EUExAudio/sourceCode/PFMusicPlayer.m
+END
