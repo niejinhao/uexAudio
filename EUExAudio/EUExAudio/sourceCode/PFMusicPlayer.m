@@ -29,6 +29,7 @@ AVAudioPlayer * currentPlayer;
 		[currentPlayer release];
 		currentPlayer = nil; 
 	}
+    
 	currentPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileUrl error:nil];
 	if (currentPlayer) {
 		[currentPlayer setDelegate:self];
@@ -52,6 +53,7 @@ AVAudioPlayer * currentPlayer;
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
             [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
         }else {
+            [self stopMusic];
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}"];
             [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
         }
@@ -120,5 +122,34 @@ AVAudioPlayer * currentPlayer;
 		currentPlayer = nil;
 	}
     [super dealloc];
+}
+
+
+
+
+// 解码错误
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error{
+    NSLog(@"解码错误！");
+    
+    
+}
+
+// 当音频播放过程中被中断时
+- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player{
+    // 当音频播放过程中被中断时，执行该方法。比如：播放音频时，电话来了！
+    // 这时候，音频播放将会被暂停。
+}
+
+// 当中断结束时
+- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags{
+    
+    // AVAudioSessionInterruptionFlags_ShouldResume 表示被中断的音频可以恢复播放了。
+    // 该标识在iOS 6.0 被废除。需要用flags参数，来表示视频的状态。
+    
+    NSLog(@"中断结束，恢复播放");
+    if (flags == AVAudioSessionInterruptionFlags_ShouldResume && player != nil){
+        [player play];
+    }
+    
 }
 @end

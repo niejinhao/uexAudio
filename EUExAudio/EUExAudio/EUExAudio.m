@@ -492,7 +492,7 @@
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
+        lame_set_in_samplerate(lame, 44100.0);
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
         
@@ -546,7 +546,7 @@
     //录音格式 无法使用
     [settings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
     //采样率
-    [settings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
+    [settings setValue :[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];//44100.0
     //通道数
     [settings setValue :[NSNumber numberWithInt:2] forKey: AVNumberOfChannelsKey];
     //线性采样位数
@@ -818,6 +818,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     if (_audioPlayer == nil) {
         _audioPlayer = [[AudioPlayer alloc] initWithUexobj:self];
         _audioPlayer.runloopMode = self.runloopTime;
+        _audioPlayer.playTimes=0;
     }
     if ([_audioPlayer.button isEqual:button]) {
         [_audioPlayer play];
@@ -825,6 +826,8 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
         [_audioPlayer stop];
         _audioPlayer.button = button;
         _audioPlayer.url = [NSURL URLWithString:self.musicUrl];
+        _audioPlayer.runloopMode = self.runloopTime;
+        _audioPlayer.playTimes=0;
         [_audioPlayer play];
     }
 }

@@ -10,6 +10,7 @@
 #import "AudioButton.h"
 #import "AudioStreamer.h"
 
+
 @implementation AudioPlayer
 
 @synthesize streamer, url, button;
@@ -91,7 +92,7 @@
 
 - (void)stop
 {
-    
+
     [button setProgress:0];
     [button stopSpin];
 
@@ -151,7 +152,9 @@
             [self stop];
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)self.playTimes];
             [_uexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
-            if (self.playTimes != self.runloopMode) {
+        if(self.runloopMode ==-1){
+            [self play];
+        }else if (self.playTimes < self.runloopMode) {
                 [self play];
             }
         

@@ -65,6 +65,8 @@
 @property(nonatomic,assign)NSInteger runloopTime;
 @property(nonatomic,retain)NSMutableDictionary *alert_Arguments;
 
+@property(nonatomic,assign)NSInteger playTimes;
+
 //@property (readonly)SystemSoundID  soundFileObject;
 -(void)uexSuccessWithOpId:(int)inOpId dataType:(int)inDataType data:(NSString *)inData;
 

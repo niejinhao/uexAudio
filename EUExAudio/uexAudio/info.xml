@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexAudio" version="3.0.9" build="9">
-        <info>9:更新lame库，修复在iOS8.2/8.3下可能会引起程序崩溃的bug</info>
+        uexName="uexAudio" version="3.0.10" build="10">
+        <info>10:提高了进行MP3录音的音质，修复了本地录音生成的MP3文件用http网络播放不能正常使用的bug</info>
+        <build>9:更新lame库，修复在iOS8.2/8.3下可能会引起程序崩溃的bug</build>
         <build>8:使用音频界面录制音频支持mp3格式</build>
         <build>7:修复第二次录制MP3时录制CAF的BUG</build>
         <build>6:修复播放网络音频没有回调的问题，修复播放网络音频无法循环播放的问题</build>
