@@ -864,4 +864,38 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
         }
     }
 }
+
+#pragma mark - UIApplicationAction
+
++ (void)applicationWillResignActive:(UIApplication *)application {
+    
+    NSArray * backgroundModes = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"UIBackgroundModes"];
+    
+    if ([backgroundModes containsObject:@"audio"]) {
+        
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:YES error:nil];
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+    }
+    
+}
+
++ (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    NSArray * backgroundModes = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"UIBackgroundModes"];
+    
+    if ([backgroundModes containsObject:@"audio"]) {
+        
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:YES error:nil];
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        
+    }
+    
+}
+
+
 @end
