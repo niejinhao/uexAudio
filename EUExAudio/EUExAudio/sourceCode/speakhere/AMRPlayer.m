@@ -295,7 +295,7 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 		
 		buffer ->mPacketDescriptionCount = readAMRFrame*160;
 		
-		memcpy(buffer ->mAudioData, pcmBuf, readAMRFrame * 160 *2);
+		memcpy(buffer->mAudioData, pcmBuf, readAMRFrame * 160 *2);
 		
 		AudioQueueEnqueueBuffer(queue, buffer, 0, NULL);
   		

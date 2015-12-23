@@ -7,6 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42EE600C1C2A44AA007CFCB4 /* footerbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE11C2A44AA007CFCB4 /* footerbg.png */; };
+		42EE600D1C2A44AA007CFCB4 /* footerbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE21C2A44AA007CFCB4 /* footerbg@2x.png */; };
+		42EE600E1C2A44AA007CFCB4 /* parse_disable.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE31C2A44AA007CFCB4 /* parse_disable.png */; };
+		42EE600F1C2A44AA007CFCB4 /* parse_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE41C2A44AA007CFCB4 /* parse_focus.png */; };
+		42EE60101C2A44AA007CFCB4 /* parse_narmal.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE51C2A44AA007CFCB4 /* parse_narmal.png */; };
+		42EE60111C2A44AA007CFCB4 /* plugin_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE61C2A44AA007CFCB4 /* plugin_arrow_left.png */; };
+		42EE60121C2A44AA007CFCB4 /* plugin_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE71C2A44AA007CFCB4 /* plugin_arrow_left@2x.png */; };
+		42EE60131C2A44AA007CFCB4 /* plugin_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE81C2A44AA007CFCB4 /* plugin_arrow_right.png */; };
+		42EE60141C2A44AA007CFCB4 /* plugin_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FE91C2A44AA007CFCB4 /* plugin_arrow_right@2x.png */; };
+		42EE60151C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FEA1C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png */; };
+		42EE60161C2A44AA007CFCB4 /* plugin_audio_recorder_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FEB1C2A44AA007CFCB4 /* plugin_audio_recorder_bg.png */; };
+		42EE60171C2A44AA007CFCB4 /* plugin_audio_recorder_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FEC1C2A44AA007CFCB4 /* plugin_audio_recorder_bg@2x.png */; };
+		42EE60181C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FED1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg.png */; };
+		42EE60191C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FEE1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg@2x.png */; };
+		42EE601A1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FEF1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled.png */; };
+		42EE601B1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF01C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled@2x.png */; };
+		42EE601C1C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF11C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal.png */; };
+		42EE601D1C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF21C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal@2x.png */; };
+		42EE601E1C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF31C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed.png */; };
+		42EE601F1C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF41C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed@2x.png */; };
+		42EE60201C2A44AA007CFCB4 /* plugin_audio_recorder_status.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF51C2A44AA007CFCB4 /* plugin_audio_recorder_status.png */; };
+		42EE60211C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF61C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled.png */; };
+		42EE60221C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF71C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled@2x.png */; };
+		42EE60231C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF81C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal.png */; };
+		42EE60241C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FF91C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal@2x.png */; };
+		42EE60251C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFA1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed.png */; };
+		42EE60261C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFB1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed@2x.png */; };
+		42EE60271C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFC1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off.png */; };
+		42EE60281C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFD1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off@2x.png */; };
+		42EE60291C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFE1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on.png */; };
+		42EE602A1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE5FFF1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on@2x.png */; };
+		42EE602B1C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60001C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled.png */; };
+		42EE602C1C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60011C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled@2x.png */; };
+		42EE602D1C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60021C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal.png */; };
+		42EE602E1C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60031C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal@2x.png */; };
+		42EE602F1C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60041C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed.png */; };
+		42EE60301C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60051C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed@2x.png */; };
+		42EE60311C2A44AA007CFCB4 /* plugin_audio_top_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60061C2A44AA007CFCB4 /* plugin_audio_top_bg.png */; };
+		42EE60321C2A44AA007CFCB4 /* plugin_audio_top_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60071C2A44AA007CFCB4 /* plugin_audio_top_bg@2x.png */; };
+		42EE60331C2A44AA007CFCB4 /* plugin_video_play_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60081C2A44AA007CFCB4 /* plugin_video_play_disabled.png */; };
+		42EE60341C2A44AA007CFCB4 /* plugin_video_play_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE60091C2A44AA007CFCB4 /* plugin_video_play_normal.png */; };
+		42EE60351C2A44AA007CFCB4 /* plugin_video_play_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE600A1C2A44AA007CFCB4 /* plugin_video_play_selected.png */; };
+		42EE60361C2A44AA007CFCB4 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EE600B1C2A44AA007CFCB4 /* title.png */; };
 		5A9E68A018A9CEE300CEF1EA /* EUExAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E686A18A9CEE300CEF1EA /* EUExAudio.m */; };
 		5A9E68A118A9CEE300CEF1EA /* AudioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E686E18A9CEE300CEF1EA /* AudioButton.m */; };
 		5A9E68A218A9CEE300CEF1EA /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E687018A9CEE300CEF1EA /* AudioPlayer.m */; };
@@ -48,6 +91,51 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		42EE5FDB1C2A43D7007CFCB4 /* uexAudio.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uexAudio.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		42EE5FE11C2A44AA007CFCB4 /* footerbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footerbg.png; sourceTree = "<group>"; };
+		42EE5FE21C2A44AA007CFCB4 /* footerbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footerbg@2x.png"; sourceTree = "<group>"; };
+		42EE5FE31C2A44AA007CFCB4 /* parse_disable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parse_disable.png; sourceTree = "<group>"; };
+		42EE5FE41C2A44AA007CFCB4 /* parse_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parse_focus.png; sourceTree = "<group>"; };
+		42EE5FE51C2A44AA007CFCB4 /* parse_narmal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parse_narmal.png; sourceTree = "<group>"; };
+		42EE5FE61C2A44AA007CFCB4 /* plugin_arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_arrow_left.png; sourceTree = "<group>"; };
+		42EE5FE71C2A44AA007CFCB4 /* plugin_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_arrow_left@2x.png"; sourceTree = "<group>"; };
+		42EE5FE81C2A44AA007CFCB4 /* plugin_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_arrow_right.png; sourceTree = "<group>"; };
+		42EE5FE91C2A44AA007CFCB4 /* plugin_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_arrow_right@2x.png"; sourceTree = "<group>"; };
+		42EE5FEA1C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_bg_dot.png; sourceTree = "<group>"; };
+		42EE5FEB1C2A44AA007CFCB4 /* plugin_audio_recorder_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_bg.png; sourceTree = "<group>"; };
+		42EE5FEC1C2A44AA007CFCB4 /* plugin_audio_recorder_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_bg@2x.png"; sourceTree = "<group>"; };
+		42EE5FED1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_center_bg.png; sourceTree = "<group>"; };
+		42EE5FEE1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_center_bg@2x.png"; sourceTree = "<group>"; };
+		42EE5FEF1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_record_disabled.png; sourceTree = "<group>"; };
+		42EE5FF01C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_record_disabled@2x.png"; sourceTree = "<group>"; };
+		42EE5FF11C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_record_normal.png; sourceTree = "<group>"; };
+		42EE5FF21C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_record_normal@2x.png"; sourceTree = "<group>"; };
+		42EE5FF31C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_record_pressed.png; sourceTree = "<group>"; };
+		42EE5FF41C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_record_pressed@2x.png"; sourceTree = "<group>"; };
+		42EE5FF51C2A44AA007CFCB4 /* plugin_audio_recorder_status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_status.png; sourceTree = "<group>"; };
+		42EE5FF61C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_stop_disabled.png; sourceTree = "<group>"; };
+		42EE5FF71C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_stop_disabled@2x.png"; sourceTree = "<group>"; };
+		42EE5FF81C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_stop_normal.png; sourceTree = "<group>"; };
+		42EE5FF91C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_stop_normal@2x.png"; sourceTree = "<group>"; };
+		42EE5FFA1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_stop_pressed.png; sourceTree = "<group>"; };
+		42EE5FFB1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_stop_pressed@2x.png"; sourceTree = "<group>"; };
+		42EE5FFC1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_turn_off.png; sourceTree = "<group>"; };
+		42EE5FFD1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_turn_off@2x.png"; sourceTree = "<group>"; };
+		42EE5FFE1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_turn_on.png; sourceTree = "<group>"; };
+		42EE5FFF1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_turn_on@2x.png"; sourceTree = "<group>"; };
+		42EE60001C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_use_disabled.png; sourceTree = "<group>"; };
+		42EE60011C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_use_disabled@2x.png"; sourceTree = "<group>"; };
+		42EE60021C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_use_normal.png; sourceTree = "<group>"; };
+		42EE60031C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_use_normal@2x.png"; sourceTree = "<group>"; };
+		42EE60041C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_recorder_use_pressed.png; sourceTree = "<group>"; };
+		42EE60051C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_recorder_use_pressed@2x.png"; sourceTree = "<group>"; };
+		42EE60061C2A44AA007CFCB4 /* plugin_audio_top_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_audio_top_bg.png; sourceTree = "<group>"; };
+		42EE60071C2A44AA007CFCB4 /* plugin_audio_top_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_audio_top_bg@2x.png"; sourceTree = "<group>"; };
+		42EE60081C2A44AA007CFCB4 /* plugin_video_play_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_video_play_disabled.png; sourceTree = "<group>"; };
+		42EE60091C2A44AA007CFCB4 /* plugin_video_play_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_video_play_normal.png; sourceTree = "<group>"; };
+		42EE600A1C2A44AA007CFCB4 /* plugin_video_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_video_play_selected.png; sourceTree = "<group>"; };
+		42EE600B1C2A44AA007CFCB4 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		42EE60381C2A473C007CFCB4 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
 		5A60A94918AB5F7500C727A6 /* EUExAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EUExAudio.h; sourceTree = "<group>"; };
 		5A9E686A18A9CEE300CEF1EA /* EUExAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExAudio.m; sourceTree = "<group>"; };
 		5A9E686D18A9CEE300CEF1EA /* AudioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioButton.h; sourceTree = "<group>"; };
@@ -101,7 +189,6 @@
 		5AA8D49A188F967300C854BC /* EUExAudio-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EUExAudio-Prefix.pch"; sourceTree = "<group>"; };
 		5AA8D4BD188F970500C854BC /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
 		5AA8D4BE188F970500C854BC /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
-		5AA8D4BF188F970500C854BC /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
 		F7A4F4B119C0260F00B4C716 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		F7A4F4B419C029F600B4C716 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F7A4F4B619C02A0300B4C716 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,6 +199,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		42EE5FD81C2A43D7007CFCB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5AA8D490188F967300C854BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +223,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42EE5FDC1C2A43D7007CFCB4 /* uexAudioBundle */ = {
+			isa = PBXGroup;
+			children = (
+				42EE5FE11C2A44AA007CFCB4 /* footerbg.png */,
+				42EE5FE21C2A44AA007CFCB4 /* footerbg@2x.png */,
+				42EE5FE31C2A44AA007CFCB4 /* parse_disable.png */,
+				42EE5FE41C2A44AA007CFCB4 /* parse_focus.png */,
+				42EE5FE51C2A44AA007CFCB4 /* parse_narmal.png */,
+				42EE5FE61C2A44AA007CFCB4 /* plugin_arrow_left.png */,
+				42EE5FE71C2A44AA007CFCB4 /* plugin_arrow_left@2x.png */,
+				42EE5FE81C2A44AA007CFCB4 /* plugin_arrow_right.png */,
+				42EE5FE91C2A44AA007CFCB4 /* plugin_arrow_right@2x.png */,
+				42EE5FEA1C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png */,
+				42EE5FEB1C2A44AA007CFCB4 /* plugin_audio_recorder_bg.png */,
+				42EE5FEC1C2A44AA007CFCB4 /* plugin_audio_recorder_bg@2x.png */,
+				42EE5FED1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg.png */,
+				42EE5FEE1C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg@2x.png */,
+				42EE5FEF1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled.png */,
+				42EE5FF01C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled@2x.png */,
+				42EE5FF11C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal.png */,
+				42EE5FF21C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal@2x.png */,
+				42EE5FF31C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed.png */,
+				42EE5FF41C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed@2x.png */,
+				42EE5FF51C2A44AA007CFCB4 /* plugin_audio_recorder_status.png */,
+				42EE5FF61C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled.png */,
+				42EE5FF71C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled@2x.png */,
+				42EE5FF81C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal.png */,
+				42EE5FF91C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal@2x.png */,
+				42EE5FFA1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed.png */,
+				42EE5FFB1C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed@2x.png */,
+				42EE5FFC1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off.png */,
+				42EE5FFD1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off@2x.png */,
+				42EE5FFE1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on.png */,
+				42EE5FFF1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on@2x.png */,
+				42EE60001C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled.png */,
+				42EE60011C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled@2x.png */,
+				42EE60021C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal.png */,
+				42EE60031C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal@2x.png */,
+				42EE60041C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed.png */,
+				42EE60051C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed@2x.png */,
+				42EE60061C2A44AA007CFCB4 /* plugin_audio_top_bg.png */,
+				42EE60071C2A44AA007CFCB4 /* plugin_audio_top_bg@2x.png */,
+				42EE60081C2A44AA007CFCB4 /* plugin_video_play_disabled.png */,
+				42EE60091C2A44AA007CFCB4 /* plugin_video_play_normal.png */,
+				42EE600A1C2A44AA007CFCB4 /* plugin_video_play_selected.png */,
+				42EE600B1C2A44AA007CFCB4 /* title.png */,
+			);
+			path = uexAudioBundle;
+			sourceTree = "<group>";
+		};
 		5A9E686B18A9CEE300CEF1EA /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				5AA8D498188F967300C854BC /* EUExAudio */,
+				42EE5FDC1C2A43D7007CFCB4 /* uexAudioBundle */,
 				5AA8D495188F967300C854BC /* Frameworks */,
 				5AA8D494188F967300C854BC /* Products */,
 			);
@@ -245,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				5AA8D493188F967300C854BC /* libuexAudio.a */,
+				42EE5FDB1C2A43D7007CFCB4 /* uexAudio.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -284,9 +430,9 @@
 		5AA8D4BC188F970500C854BC /* engineHeader */ = {
 			isa = PBXGroup;
 			children = (
+				42EE60381C2A473C007CFCB4 /* EUtility.h */,
 				5AA8D4BD188F970500C854BC /* EUExBase.h */,
 				5AA8D4BE188F970500C854BC /* EUExBaseDefine.h */,
-				5AA8D4BF188F970500C854BC /* EUtility.h */,
 			);
 			path = engineHeader;
 			sourceTree = "<group>";
@@ -303,6 +449,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		42EE5FDA1C2A43D7007CFCB4 /* uexAudioBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42EE5FE01C2A43D7007CFCB4 /* Build configuration list for PBXNativeTarget "uexAudioBundle" */;
+			buildPhases = (
+				42EE5FD71C2A43D7007CFCB4 /* Sources */,
+				42EE5FD81C2A43D7007CFCB4 /* Frameworks */,
+				42EE5FD91C2A43D7007CFCB4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = uexAudioBundle;
+			productName = uexAudioBundle;
+			productReference = 42EE5FDB1C2A43D7007CFCB4 /* uexAudio.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		5AA8D492188F967300C854BC /* EUExAudio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5AA8D4B6188F967300C854BC /* Build configuration list for PBXNativeTarget "EUExAudio" */;
@@ -328,6 +491,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = xll;
+				TargetAttributes = {
+					42EE5FDA1C2A43D7007CFCB4 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
 			};
 			buildConfigurationList = 5AA8D48E188F967200C854BC /* Build configuration list for PBXProject "EUExAudio" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -342,11 +510,72 @@
 			projectRoot = "";
 			targets = (
 				5AA8D492188F967300C854BC /* EUExAudio */,
+				42EE5FDA1C2A43D7007CFCB4 /* uexAudioBundle */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		42EE5FD91C2A43D7007CFCB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42EE60151C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png in Resources */,
+				42EE60201C2A44AA007CFCB4 /* plugin_audio_recorder_status.png in Resources */,
+				42EE60331C2A44AA007CFCB4 /* plugin_video_play_disabled.png in Resources */,
+				42EE602C1C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled@2x.png in Resources */,
+				42EE600F1C2A44AA007CFCB4 /* parse_focus.png in Resources */,
+				42EE60281C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off@2x.png in Resources */,
+				42EE600E1C2A44AA007CFCB4 /* parse_disable.png in Resources */,
+				42EE60311C2A44AA007CFCB4 /* plugin_audio_top_bg.png in Resources */,
+				42EE601B1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled@2x.png in Resources */,
+				42EE60121C2A44AA007CFCB4 /* plugin_arrow_left@2x.png in Resources */,
+				42EE60221C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled@2x.png in Resources */,
+				42EE600D1C2A44AA007CFCB4 /* footerbg@2x.png in Resources */,
+				42EE60251C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed.png in Resources */,
+				42EE60171C2A44AA007CFCB4 /* plugin_audio_recorder_bg@2x.png in Resources */,
+				42EE602A1C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on@2x.png in Resources */,
+				42EE601E1C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed.png in Resources */,
+				42EE60231C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal.png in Resources */,
+				42EE60271C2A44AA007CFCB4 /* plugin_audio_recorder_turn_off.png in Resources */,
+				42EE600C1C2A44AA007CFCB4 /* footerbg.png in Resources */,
+				42EE601C1C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal.png in Resources */,
+				42EE602B1C2A44AA007CFCB4 /* plugin_audio_recorder_use_disabled.png in Resources */,
+				42EE60341C2A44AA007CFCB4 /* plugin_video_play_normal.png in Resources */,
+				42EE60301C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed@2x.png in Resources */,
+				42EE60211C2A44AA007CFCB4 /* plugin_audio_recorder_stop_disabled.png in Resources */,
+				42EE60181C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg.png in Resources */,
+				42EE60161C2A44AA007CFCB4 /* plugin_audio_recorder_bg.png in Resources */,
+				42EE60101C2A44AA007CFCB4 /* parse_narmal.png in Resources */,
+				42EE60351C2A44AA007CFCB4 /* plugin_video_play_selected.png in Resources */,
+				42EE60321C2A44AA007CFCB4 /* plugin_audio_top_bg@2x.png in Resources */,
+				42EE602E1C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal@2x.png in Resources */,
+				42EE601A1C2A44AA007CFCB4 /* plugin_audio_recorder_record_disabled.png in Resources */,
+				42EE60191C2A44AA007CFCB4 /* plugin_audio_recorder_center_bg@2x.png in Resources */,
+				42EE60111C2A44AA007CFCB4 /* plugin_arrow_left.png in Resources */,
+				42EE60241C2A44AA007CFCB4 /* plugin_audio_recorder_stop_normal@2x.png in Resources */,
+				42EE601F1C2A44AA007CFCB4 /* plugin_audio_recorder_record_pressed@2x.png in Resources */,
+				42EE60131C2A44AA007CFCB4 /* plugin_arrow_right.png in Resources */,
+				42EE601D1C2A44AA007CFCB4 /* plugin_audio_recorder_record_normal@2x.png in Resources */,
+				42EE602D1C2A44AA007CFCB4 /* plugin_audio_recorder_use_normal.png in Resources */,
+				42EE60291C2A44AA007CFCB4 /* plugin_audio_recorder_turn_on.png in Resources */,
+				42EE60261C2A44AA007CFCB4 /* plugin_audio_recorder_stop_pressed@2x.png in Resources */,
+				42EE602F1C2A44AA007CFCB4 /* plugin_audio_recorder_use_pressed.png in Resources */,
+				42EE60361C2A44AA007CFCB4 /* title.png in Resources */,
+				42EE60141C2A44AA007CFCB4 /* plugin_arrow_right@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		42EE5FD71C2A43D7007CFCB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5AA8D48F188F967300C854BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,6 +605,57 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		42EE5FDE1C2A43D7007CFCB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zywx.uexAudioBundle;
+				PRODUCT_MODULE_NAME = uexAudio;
+				PRODUCT_NAME = uexAudio;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		42EE5FDF1C2A43D7007CFCB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zywx.uexAudioBundle;
+				PRODUCT_MODULE_NAME = uexAudio;
+				PRODUCT_NAME = uexAudio;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		5AA8D4B4188F967300C854BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -460,6 +740,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexAudio/";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DSTROOT = /tmp/EUExAudio.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExAudio/EUExAudio-Prefix.pch";
@@ -481,6 +762,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexAudio/";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DSTROOT = /tmp/EUExAudio.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExAudio/EUExAudio-Prefix.pch";
@@ -498,6 +780,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		42EE5FE01C2A43D7007CFCB4 /* Build configuration list for PBXNativeTarget "uexAudioBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42EE5FDE1C2A43D7007CFCB4 /* Debug */,
+				42EE5FDF1C2A43D7007CFCB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		5AA8D48E188F967200C854BC /* Build configuration list for PBXProject "EUExAudio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
