@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexAudio" version="3.0.11" build="11">
-        <info>11:改用bundle调用图片资源;添加IDE支持</info>
+        uexName="uexAudio" version="3.0.12" build="12">
+        <info>12:改用bundle调用图片资源;添加IDE支持</info>
+        <build>11:支持后台播放音频，需配置相关权限</build>
         <build>10:提高了进行MP3录音的音质，修复了本地录音生成的MP3文件用http网络播放不能正常使用的bug</build>
         <build>9:更新lame库，修复在iOS8.2/8.3下可能会引起程序崩溃的bug</build>
         <build>8:使用音频界面录制音频支持mp3格式</build>
