@@ -128,7 +128,7 @@
     } else {
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
-            [amrMgr playStop:amrPath];
+            [amrMgr playStop:amrPath runloopTime:self.runloopTime euexObj:self];
             return;
         }
         if (pfPlayer) {

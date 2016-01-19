@@ -149,7 +149,7 @@ static PlayerManager* g_instance = nil;
 	}
 	return 0;
 }
-- (BOOL)playStop:(NSString*)fileName
+- (BOOL)playStop:(NSString*)fileName runloopTime:(NSInteger)runloopTime euexObj:(EUExAudio *)inEuexObj
 
 {
 	
@@ -161,6 +161,12 @@ static PlayerManager* g_instance = nil;
 		
 		if (self.playStatus == NO) {
 			if (fileName) {
+                self.stopStaus=0;
+                _playedTime=1;
+                _runloopTime=runloopTime;
+                euexObj=inEuexObj;
+                _fileName=fileName;
+                
 				[_player startPlay:[fileName UTF8String]];
 			}
 			self.playStatus=YES;
@@ -198,7 +204,23 @@ static PlayerManager* g_instance = nil;
 	self.playStatus=NO;
 	if (_delegate&&[_delegate respondsToSelector:@selector(playFinishedNotify)]) {
 		[_delegate playFinishedNotify];
-	}
+    }
+    //控制回调
+    self.stopStaus++;
+    if(self.stopStaus==3){
+        self.stopStaus=0;
+        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)_playedTime];
+        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+        
+        if(_runloopTime==-1){
+            [_player startPlay:[_fileName UTF8String]];
+            _playedTime++;
+        }
+        if(_runloopTime>1 && _playedTime<_runloopTime){
+            [_player startPlay:[_fileName UTF8String]];
+            _playedTime++;
+        }
+    }
 }
 
 @end
