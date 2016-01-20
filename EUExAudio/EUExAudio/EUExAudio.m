@@ -128,7 +128,11 @@
     } else {
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
-            [amrMgr playStop:amrPath runloopTime:self.runloopTime euexObj:self];
+            NSFileManager * fileManager = [NSFileManager defaultManager];
+            BOOL isFileExists = [fileManager fileExistsAtPath:amrPath];
+            if (isFileExists) {
+                [amrMgr playStop:amrPath runloopTime:self.runloopTime euexObj:self];
+            }
             return;
         }
         if (pfPlayer) {
