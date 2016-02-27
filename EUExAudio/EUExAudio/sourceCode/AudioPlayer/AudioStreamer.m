@@ -743,7 +743,7 @@ void ASReadStreamCallBack
 	{
 		isRunning = [[NSRunLoop currentRunLoop]
 			runMode:NSDefaultRunLoopMode
-			beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.25]];
+			beforeDate:[NSDate dateWithTimeIntervalSinceNow:4]];
 		
 		@synchronized(self) {
 			if (seekWasRequested) {
