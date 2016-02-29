@@ -17,5 +17,6 @@
         <method name="closeSoundPool"></method>
         <method name="startBackgroundRecord"></method>
         <method name ="stopBackgroundRecord"></method>
+        <method name ="setPlayMode"></method>
 	</plugin>
 </uexplugins>

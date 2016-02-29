@@ -16,6 +16,7 @@
 #import "AudioButton.h"
 #import "AudioPlayer.h"
 #import "lame.h"
+#import "JSON.h"
 @implementation EUExAudio{
     int backgroundSoundType;
   
@@ -117,6 +118,16 @@
 }
 
 -(void)play:(NSMutableArray *)inArguments {
+    
+    if (self.needCall==true)
+    {
+        //切换为听筒播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{
+        //切换为扬声器播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+    
     if ([inArguments count] > 0) {
         self.runloopTime = [[inArguments objectAtIndex:0] integerValue];
     }
@@ -153,6 +164,16 @@
 }
 
 -(void)pause:(NSMutableArray *)inArguments {
+    
+    if(self.needCall)
+    {
+        //切换为听筒播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{
+        //切换为扬声器播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+    
     if (isNetResource) {
         if (isPlayed) {
             [self playAudio:btnAudio];
@@ -187,6 +208,16 @@
 }
 
 -(void)stop:(NSMutableArray *)inArguments {
+    
+    if(self.needCall)
+    {
+        //切换为听筒播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{
+        //切换为扬声器播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+    
     if (isNetResource) {
         if (isPlayed) {
             if (musicTimer) {
@@ -901,5 +932,37 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     
 }
 
+-(void)setPlayMode:(NSMutableArray*)inArguments
+{
+    NSDictionary * dict = [[inArguments objectAtIndex:0] JSONValue];
+    NSLog(@"%@",dict);
+    NSString * string = [NSString stringWithFormat:@"%@",[dict objectForKey:@"playMode"]];
+    if ([string isEqualToString:@"1"])
+    {
+        self.needCall = true;
+    }
+    else
+    {
+        self.needCall = false;
+    }
+    
+    //一下是切换听筒还是扬声器播放；
+    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback])
+    {
+        //切换为听筒播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+//        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为听筒模式"];
+        //[self showTipInfo:@"切换为听筒模式"];
+    }
+    else
+    {
+        //切换为扬声器播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        
+//        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为扬声器模式"];
+        //[self showTipInfo:@"切换为扬声器模式"];
+        
+    }
+}
 
 @end

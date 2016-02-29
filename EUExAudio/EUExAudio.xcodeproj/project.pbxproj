@@ -136,6 +136,13 @@
 		42EE600A1C2A44AA007CFCB4 /* plugin_video_play_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugin_video_play_selected.png; sourceTree = "<group>"; };
 		42EE600B1C2A44AA007CFCB4 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		42EE60381C2A473C007CFCB4 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
+		5836BFCF1C84337D00E427AB /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = JSON/JSON.h; sourceTree = "<group>"; };
+		5836BFD01C84337D00E427AB /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJSON.h"; path = "JSON/NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		5836BFD11C84337D00E427AB /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SBJSON.h"; path = "JSON/NSString+SBJSON.h"; sourceTree = "<group>"; };
+		5836BFD21C84337D00E427AB /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJSON.h; path = JSON/SBJSON.h; sourceTree = "<group>"; };
+		5836BFD31C84337D00E427AB /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonBase.h; path = JSON/SBJsonBase.h; sourceTree = "<group>"; };
+		5836BFD41C84337D00E427AB /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = JSON/SBJsonParser.h; sourceTree = "<group>"; };
+		5836BFD51C84337D00E427AB /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = JSON/SBJsonWriter.h; sourceTree = "<group>"; };
 		5A60A94918AB5F7500C727A6 /* EUExAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EUExAudio.h; sourceTree = "<group>"; };
 		5A9E686A18A9CEE300CEF1EA /* EUExAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExAudio.m; sourceTree = "<group>"; };
 		5A9E686D18A9CEE300CEF1EA /* AudioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioButton.h; sourceTree = "<group>"; };
@@ -276,6 +283,13 @@
 		5A9E686B18A9CEE300CEF1EA /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				5836BFCF1C84337D00E427AB /* JSON.h */,
+				5836BFD01C84337D00E427AB /* NSObject+SBJSON.h */,
+				5836BFD11C84337D00E427AB /* NSString+SBJSON.h */,
+				5836BFD21C84337D00E427AB /* SBJSON.h */,
+				5836BFD31C84337D00E427AB /* SBJsonBase.h */,
+				5836BFD41C84337D00E427AB /* SBJsonParser.h */,
+				5836BFD51C84337D00E427AB /* SBJsonWriter.h */,
 				5A9E686C18A9CEE300CEF1EA /* AudioPlayer */,
 				5A9E687818A9CEE300CEF1EA /* iPublicUtility */,
 				5A9E688218A9CEE300CEF1EA /* MusicListViewController.h */,
@@ -787,6 +801,7 @@
 				42EE5FDF1C2A43D7007CFCB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5AA8D48E188F967200C854BC /* Build configuration list for PBXProject "EUExAudio" */ = {
 			isa = XCConfigurationList;

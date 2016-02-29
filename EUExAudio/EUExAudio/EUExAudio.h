@@ -73,4 +73,7 @@
 //onLine
 @property(nonatomic,retain)UISlider * sliderse;
 @property(nonatomic,retain)NSString * musicUrl;
+
+@property(nonatomic,assign)int needCall;
+
 @end
