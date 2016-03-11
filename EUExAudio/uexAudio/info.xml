@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexAudio" version="3.0.15" build="15">
-        <info>15:添加setPlayMode()接口设置播放模式</info>
+        uexName="uexAudio" version="3.0.16" build="16">
+        <info>16:添加setProximityState()接口设置光感听筒模式</info>
+        <build>15:添加setPlayMode()接口设置播放模式</build>
         <build>14:修改audio录的本地录音传到服务器上放不了bug</build>
         <build>13:修改amr格式文件路径不存在时播放崩溃</build>
         <build>12:改用bundle调用图片资源;添加IDE支持</build>
