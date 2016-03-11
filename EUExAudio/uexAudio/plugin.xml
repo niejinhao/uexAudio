@@ -18,5 +18,6 @@
         <method name="startBackgroundRecord"></method>
         <method name ="stopBackgroundRecord"></method>
         <method name ="setPlayMode"></method>
+        <method name ="setProximityState"></method>
 	</plugin>
 </uexplugins>

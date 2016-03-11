@@ -86,6 +86,7 @@
 
 -(void)open:(NSMutableArray *)inArguments {
 	NSString *inPath = [inArguments objectAtIndex:0];
+//    NSLog(@"open  inPath  %@",inPath);
      session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryAmbient error:nil];
     [session setActive:YES error:nil];
@@ -116,8 +117,49 @@
         }
     }
 }
-
+//光感事件，使用近距离传感器，当接近耳朵时，调用听筒模式，远离时采用功放模式（也可以自定义）
+- (void)proximityStateChanged:(NSNotificationCenter *)notefication
+{
+    if ([[UIDevice currentDevice]proximityState ] == YES) {
+//     听筒模式
+        [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }
+    else
+    {
+        
+        if (self.needCall==true)
+        {
+            //切换为听筒播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        }else{
+            //切换为扬声器播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        }
+//     扬声器模式
+//        [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+}
+- (void)setProximityState:(NSMutableArray *)inArray
+{
+    NSString *string = [inArray objectAtIndex:0];
+    if ([string isEqualToString:@"1"]) {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
+    }
+    else
+    {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
+        
+    }
+    
+}
 -(void)play:(NSMutableArray *)inArguments {
+    
+//    [[UIDevice currentDevice]setProximityMonitoringEnabled:YES];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
+//    
+    
     
     if (self.needCall==true)
     {
@@ -130,6 +172,7 @@
     
     if ([inArguments count] > 0) {
         self.runloopTime = [[inArguments objectAtIndex:0] integerValue];
+//        NSLog(@"play  %ld",(long)self.runloopTime);
     }
     if (isNetResource) {
         isPlayed = YES;
@@ -758,6 +801,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     if (self.alert_Arguments) {
         self.alert_Arguments=nil;
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
 }
 #pragma  mark
 #pragma  mark - 加载播放网络音乐
@@ -765,6 +809,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 //努力加载播放网络音乐
 -(void)musicOnline {
     //播放网络音乐
+//    NSLog(@"播放网络音乐");
     btnAudio = [[AudioButton alloc] initWithFrame:CGRectMake(130, 10, 50, 50)];
     UILabel * valume = [[UILabel alloc]initWithFrame:CGRectMake(10, 65, 45, 30)];
     valume.text = @"音量";
@@ -935,34 +980,38 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 -(void)setPlayMode:(NSMutableArray*)inArguments
 {
     NSDictionary * dict = [[inArguments objectAtIndex:0] JSONValue];
-    NSLog(@"%@",dict);
+//    NSLog(@"setPlayMode %@",dict);
     NSString * string = [NSString stringWithFormat:@"%@",[dict objectForKey:@"playMode"]];
     if ([string isEqualToString:@"1"])
     {
         self.needCall = true;
+//        NSLog(@"true");
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     }
     else
     {
         self.needCall = false;
+//        NSLog(@"false");
+         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
     
-    //一下是切换听筒还是扬声器播放；
-    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback])
-    {
-        //切换为听筒播放
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-//        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为听筒模式"];
-        //[self showTipInfo:@"切换为听筒模式"];
-    }
-    else
-    {
-        //切换为扬声器播放
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-        
-//        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为扬声器模式"];
-        //[self showTipInfo:@"切换为扬声器模式"];
-        
-    }
+//    //一下是切换听筒还是扬声器播放；
+//    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback])
+//    {
+//        //切换为听筒播放
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+////        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为听筒模式"];
+//        //[self showTipInfo:@"切换为听筒模式"];
+//    }
+//    else
+//    {
+//        //切换为扬声器播放
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+//        
+////        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为扬声器模式"];
+//        //[self showTipInfo:@"切换为扬声器模式"];
+//        
+//    }
 }
 
 @end
