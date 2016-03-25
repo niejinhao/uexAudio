@@ -21,6 +21,7 @@ AQRecorder* _recorder;
 
 @implementation PlayerManager
 
+@synthesize runloopMode;
 
 @synthesize playStatus=_playStatus;
 
@@ -76,6 +77,7 @@ static PlayerManager* g_instance = nil;
 -(void)initAudioSession:(int)type
 
 {
+    
 	UInt32 category = kAudioSessionCategory_PlayAndRecord;
 	
 	int error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
@@ -101,7 +103,6 @@ static PlayerManager* g_instance = nil;
 	if (_player) {
 		
 		[_player StopQueue];
-		
 		[_player release];
 		
 	}
@@ -149,25 +150,18 @@ static PlayerManager* g_instance = nil;
 	}
 	return 0;
 }
-- (BOOL)playStop:(NSString*)fileName runloopTime:(NSInteger)runloopTime euexObj:(EUExAudio *)inEuexObj
+- (BOOL)playStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc
 
 {
-	
-	NSLog(@"playStop ptt");
-	
+    euexObj = ineuexBjc;
 	if (_player) {
 		
 		// NSString* amrPath=[NSString stringWithFormat:@"%@/%@",[testView DocPath],@"record.amr"];
-		
+        
 		if (self.playStatus == NO) {
 			if (fileName) {
-                self.stopStaus=0;
-                _playedTime=1;
-                _runloopTime=runloopTime;
-                euexObj=inEuexObj;
-                _fileName=fileName;
-                
-				[_player startPlay:[fileName UTF8String]];
+                _fileName = fileName;
+				[_player startPlay:[fileName UTF8String] ];
 			}
 			self.playStatus=YES;
 		}
@@ -198,29 +192,44 @@ static PlayerManager* g_instance = nil;
 	if (_delegate&&[_delegate respondsToSelector:@selector(changePlayProgressWithPro:)]) {
 		[_delegate changePlayProgressWithPro:_progress];
 	}
+//    NSLog(@"playedFileFileProgress");
 }
 -(void)playedFinishNotify{
-	[_player StopQueue];
 	self.playStatus=NO;
 	if (_delegate&&[_delegate respondsToSelector:@selector(playFinishedNotify)]) {
 		[_delegate playFinishedNotify];
-    }
-    //控制回调
-    self.stopStaus++;
-    if(self.stopStaus==3){
-        self.stopStaus=0;
-        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)_playedTime];
-        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
         
-        if(_runloopTime==-1){
-            [_player startPlay:[_fileName UTF8String]];
-            _playedTime++;
+	}
+    playTimes++;
+   
+    if (runloopMode == -1) {
+       [_player startPlay:[_fileName UTF8String] ];
+        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
+        [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+    }
+    else
+    {
+        if (playTimes < runloopMode) {
+            [_player startPlay:[_fileName UTF8String] ];
+            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
+            [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
         }
-        if(_runloopTime>1 && _playedTime<_runloopTime){
-            [_player startPlay:[_fileName UTF8String]];
-            _playedTime++;
+        else
+        {
+            if (runloopMode == playTimes) {
+                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
+                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            }
+            else
+            {
+                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
+                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            }
+            [_player StopQueue];
+            
         }
     }
+    
 }
 
 @end

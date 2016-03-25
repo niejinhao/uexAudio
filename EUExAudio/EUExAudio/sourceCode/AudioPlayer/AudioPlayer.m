@@ -150,6 +150,7 @@
         
             //循环一定次数
             [self stop];
+
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)self.playTimes];
             [_uexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
         if(self.runloopMode ==-1){

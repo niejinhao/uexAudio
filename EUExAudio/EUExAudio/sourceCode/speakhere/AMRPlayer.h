@@ -33,18 +33,22 @@
 
 #import <AudioToolbox/AudioFile.h>
 
+#import "EUExAudio.h"
 
 #define NUM_BUFFERS 3
+#define kPlayFlag @"kPlayFlag"
+
+@class AMRPlayer;
 @protocol AMRPlayerDelegate <NSObject>
 
 -(void)playedFileFileProgress:(int)_progress;
 -(void)playedFinishNotify;
-
 @end
 
 
 @interface AMRPlayer : NSObject {
-	
+    
+    
     //播放音频文件ID
     AudioFileID audioFile;
     //音频流描述对象
@@ -60,12 +64,19 @@
 	int _hasReadSize;
 	FILE* _amrFile;
 	id <AMRPlayerDelegate> _playNotify;
+    
+//    NSInteger playTimes;//循环播放次数
+    
 }
 //定义队列为实例属性
 @property AudioQueueRef queue;
 @property(nonatomic,assign)id <AMRPlayerDelegate> playNotify;
+
+@property (nonatomic, assign) BOOL playing;
+
+@property (nonatomic,copy)EUExAudio *euexObj;
 //播放方法定义
-- (void) startPlay:(const char*) path;//CFURLRef
+- (void) startPlay:(const char*) path  ;//CFURLRef
 //定义缓存数据读取方法
 - (void) audioQueueOutputWithQueue:(AudioQueueRef)audioQueue
 

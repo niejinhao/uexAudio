@@ -44,18 +44,32 @@ AVAudioPlayer * currentPlayer;
     if (self.runloopMode == -1) {
         //无限循环播放
         [currentPlayer play];
+        
         NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
         [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
     } else {
         if (playTimes < self.runloopMode) {
             //循环一定次数
             [currentPlayer play];
+            
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
             [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
-        }else {
+            
+        }
+        else
+        {
+        
+            if (runloopMode == playTimes) {
+                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
+                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            }
+            else
+            {
+                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
+                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            }
+            
             [self stopMusic];
-            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}"];
-            [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
         }
     }
 }

@@ -7,9 +7,9 @@
 //  Copyright 2011 正益无线. All rights reserved.
 //
 #import "AMRPlayer.h"
-
+#import "EUExAudio.h"
 #include "interf_dec.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 const unsigned int PACKETNUM =  25;//20ms * 25 = 0.5s ,每个包25帧,可以播放0.5秒
 
@@ -21,13 +21,14 @@ const unsigned int PERREADFRAME =  10;//每次读取帧数
 
 static unsigned int gBufferSizeBytes = 0x10000;
 
+static int stoptimes = 0;
+#define systemtStopTime 3
 
 @implementation AMRPlayer
 
-
 @synthesize queue;
 @synthesize playNotify = _playNotify;
-
+@synthesize playing;
 // 回调（Callback）函数的实现
 
 
@@ -36,9 +37,7 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
     AMRPlayer* player = (AMRPlayer*)inUserData;
 	
     [player  audioQueueOutputWithQueue:inAQ queueBuffer:buffer];
-	
 }
-
 
 //初始化方法（为NSObject中定义的初始化方法）
 
@@ -174,20 +173,43 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 		AudioQueueEnqueueBuffer(audioQueue, audioQueueBuffer, 0, NULL);
  
 	}
-	if (readAMRFrame==0) {
-		 AudioQueueStop(queue, TRUE);
-		if (_playNotify&&[_playNotify respondsToSelector:@selector(playedFinishNotify)]) {
-			[_playNotify playedFinishNotify];
-		}
-	}
+    else
+    {
+        stoptimes ++;
+        if(stoptimes >= systemtStopTime)
+            [self StopQueue];
+
+    }
 	
 }
+//
+static void audioQueuePropertyListenerProc(
+                                           void *                  inUserData,
+                                           AudioQueueRef           inAQ,
+                                           AudioQueuePropertyID    inID)
+{
+    
+    
+    AMRPlayer *player = (AMRPlayer *)inUserData;
+    if (inID == kAudioQueueProperty_IsRunning) {
+        UInt32 value = 0;
+        UInt32 length = sizeof(value);
+        AudioQueueGetProperty(inAQ, inID, &value, &length);
+        if (value) {
+            player->playing = YES;
+        }
+        else {
+            player->playing = NO;
+            [(NSObject *)player.playNotify performSelectorOnMainThread:@selector(playedFinishNotify) withObject:player waitUntilDone:NO];
 
+            
+        }
+    }
+}
 
 //音频播放方法的实现
 
-
--(void) startPlay:(const char*) path
+-(void) startPlay:(const char*) path   
 
 {//CFURLRef
 	
@@ -222,7 +244,8 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
     // 创建播放用的音频队列(nil:audio队列的间隙线程)
 	
     AudioQueueNewOutput(&dataFormat, BufferCallback,self, nil, nil, 0, &queue);
- 
+    
+     AudioQueueAddPropertyListener(queue, kAudioQueueProperty_IsRunning, audioQueuePropertyListenerProc, self);
 	
     // 创建并分配缓存空间
 	
@@ -238,16 +261,34 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
  
 		
     }
- 
-	
+  
     //设置音量
 	
     AudioQueueSetParameter (queue,kAudioQueueParam_Volume,2.0);
+ 
  
 	
 	[self StartQueue];
 	
 }
+
+//
+- (void) stopPlay {
+    stoptimes = 0;
+    if (queue) {
+        [self StopQueue];
+        for (int i = 0; i < NUM_BUFFERS; i++) {
+            AudioQueueFreeBuffer(queue, buffers[i]);
+        }
+        AudioQueueDispose(queue, TRUE);
+        if (_amrFile) {
+            fclose( _amrFile );
+            _amrFile = NULL;
+        }
+        queue = NULL;
+    }
+}
+
 
 
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer {
@@ -295,7 +336,7 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 		
 		buffer ->mPacketDescriptionCount = readAMRFrame*160;
 		
-		memcpy(buffer->mAudioData, pcmBuf, readAMRFrame * 160 *2);
+		memcpy(buffer ->mAudioData, pcmBuf, readAMRFrame * 160 *2);
 		
 		AudioQueueEnqueueBuffer(queue, buffer, 0, NULL);
   		
@@ -327,11 +368,13 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 -(OSStatus)StopQueue
 
 {
+    stoptimes = 0;
     OSStatus result = AudioQueueStop(queue, TRUE);
-    if (result) 
+    if (result)
+    {
 		printf("ERROR STOPPING QUEUE!\n");
-	
-    return result;	
+    }
+    return result;
 }
 
 -(OSStatus)PauseQueue

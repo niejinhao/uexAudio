@@ -84,9 +84,11 @@
     [super dealloc];
 }
 
+
 -(void)open:(NSMutableArray *)inArguments {
     NSString *inPath = [inArguments objectAtIndex:0];
-    //    NSLog(@"open  inPath  %@",inPath);
+    
+    NSLog(@"open  inPath %@",inPath);
     session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryAmbient error:nil];
     [session setActive:YES error:nil];
@@ -100,24 +102,14 @@
         isNetResource=NO;
         if (inPath!=nil) {
             NSString *absPath = [self absPath:inPath];
-            
             NSString *exestr = nil;
-            
+            NSString *lastStr = nil;
             exestr = [self file:absPath];
             
-            //            //添加amr格式播放
-            //            NSString *lastCom = [[absPath pathExtension] lowercaseString];
-            //            if ([lastCom isEqualToString:@"amr"]) {
-            //                isAmr = YES;
-            //                self.amrPath = absPath;
-            //            }else {
-            //                pfPlayer = [[PFMusicPlayer alloc] init];
-            //                if (![pfPlayer openWithPath:absPath euexObj:self]) {
-            //                    [self jsFailedWithOpId:0 errorCode:1010104 errorDes:UEX_ERROR_DESCRIBE_FILE_OPEN];
-            //                }
-            //            }
-            
-            if ([exestr isEqualToString:@"#!AMR\n"]) {
+            // 提取路径的最后一部分
+            lastStr = [absPath lastPathComponent];
+            NSLog(@"%@",exestr);
+            if ([exestr isEqualToString:@"#!AMR\n"] || [lastStr isEqualToString:@"amr"]) {
                 isAmr = YES;
                 self.amrPath = absPath;
             }
@@ -130,7 +122,6 @@
                     
                 }
             }
-            
             
         } else {
             [self jsFailedWithOpId:0 errorCode:1010101 errorDes:UEX_ERROR_DESCRIBE_ARGS];
@@ -149,6 +140,7 @@
     if(pF == NULL) //判断文件是否存在及可读
     {
         printf("error!");
+        return nil;
         
     }
     
@@ -160,7 +152,7 @@
             fgets(StrLine,1024,pF);  //读取一行
             NSString *string = [[NSString alloc]initWithCString:StrLine encoding:NSUTF8StringEncoding];
             
-            //            NSLog(@"%@",string);
+            NSLog(@"%@",string);
             return string;
             //            printf("StrLine  %s\n", StrLine); //输出
             
@@ -174,15 +166,14 @@
     return nil;
 }
 
+
 //光感事件，使用近距离传感器，当接近耳朵时，调用听筒模式，远离时采用功放模式（也可以自定义）
-- (void)proximityStateChanged:(NSNotificationCenter *)notefication
+
+-(void)proximityStateChanged:(NSNotificationCenter *)notification;
 {
-    if ([[UIDevice currentDevice]proximityState ] == YES) {
-        //     听筒模式
-        [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    }
-    else
-    {
+    if ([[UIDevice currentDevice] proximityState] == YES) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{
         
         if (self.needCall==true)
         {
@@ -192,10 +183,9 @@
             //切换为扬声器播放
             [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         }
-        //     扬声器模式
-        //        [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
 }
+
 - (void)setProximityState:(NSMutableArray *)inArray
 {
     NSString *string = [inArray objectAtIndex:0];
@@ -211,12 +201,8 @@
     }
     
 }
+
 -(void)play:(NSMutableArray *)inArguments {
-    
-    //    [[UIDevice currentDevice]setProximityMonitoringEnabled:YES];
-    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
-    //
-    
     
     if (self.needCall==true)
     {
@@ -229,7 +215,6 @@
     
     if ([inArguments count] > 0) {
         self.runloopTime = [[inArguments objectAtIndex:0] integerValue];
-        //        NSLog(@"play  %ld",(long)self.runloopTime);
     }
     if (isNetResource) {
         isPlayed = YES;
@@ -237,18 +222,20 @@
         [self playAudio:btnAudio];
         musicTimer =[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(upProgress) userInfo:nil repeats:YES];
     } else {
+        //
+        NSInteger inRunloopMode = [[inArguments objectAtIndex:0] intValue];
+        
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
-            NSFileManager * fileManager = [NSFileManager defaultManager];
-            BOOL isFileExists = [fileManager fileExistsAtPath:amrPath];
-            if (isFileExists) {
-                [amrMgr playStop:amrPath runloopTime:self.runloopTime euexObj:self];
-            }
+            //
+            amrMgr.runloopMode = inRunloopMode;
+            
+            [amrMgr playStop:amrPath  euexObjc:self];
             return;
         }
         if (pfPlayer) {
             if ([inArguments count] > 0) {
-                NSInteger inRunloopMode = [[inArguments objectAtIndex:0] intValue];
+                
                 pfPlayer.runloopMode = inRunloopMode;
                 if ([pfPlayer playMusic] == NO) {
                     [super jsFailedWithOpId:0 errorCode:1010203 errorDes:UEX_ERROR_DESCRIBE_FILE_FORMAT];
@@ -263,8 +250,8 @@
     }
 }
 
--(void)pause:(NSMutableArray *)inArguments {
-    
+-(void)pause:(NSMutableArray *)inArguments
+{
     if(self.needCall)
     {
         //切换为听筒播放
@@ -299,8 +286,8 @@
     if (isAmr == YES) {
         PlayerManager *amrMgr = [PlayerManager getInstance];
         if ([amrMgr playStatus]==YES) {
-            [amrMgr playStop:amrPath];
-            [amrMgr playStop:amrPath];
+            [amrMgr playStop:amrPath euexObjc:self];
+            [amrMgr playStop:amrPath euexObjc:self];
         }
     } else {
         [pfPlayer replayMusic];
@@ -308,7 +295,6 @@
 }
 
 -(void)stop:(NSMutableArray *)inArguments {
-    
     if(self.needCall)
     {
         //切换为听筒播放
@@ -331,7 +317,7 @@
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
             if ([amrMgr playStatus]==YES) {
-                [amrMgr playStop:amrPath];
+                [amrMgr playStop:amrPath euexObjc:self];
             }
             return;
         }
@@ -404,6 +390,7 @@
 
 #pragma mark Recorder
 //打开录音界面
+
 -(void)openRecord_ViewController:(NSMutableArray*)inArguments{
     
     if (!recorder) {
@@ -858,6 +845,8 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     if (self.alert_Arguments) {
         self.alert_Arguments=nil;
     }
+    //    退出后，光感取消
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
 }
 #pragma  mark
@@ -866,7 +855,6 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 //努力加载播放网络音乐
 -(void)musicOnline {
     //播放网络音乐
-    //    NSLog(@"播放网络音乐");
     btnAudio = [[AudioButton alloc] initWithFrame:CGRectMake(130, 10, 50, 50)];
     UILabel * valume = [[UILabel alloc]initWithFrame:CGRectMake(10, 65, 45, 30)];
     valume.text = @"音量";
@@ -1037,38 +1025,17 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 -(void)setPlayMode:(NSMutableArray*)inArguments
 {
     NSDictionary * dict = [[inArguments objectAtIndex:0] JSONValue];
-    //    NSLog(@"setPlayMode %@",dict);
     NSString * string = [NSString stringWithFormat:@"%@",[dict objectForKey:@"playMode"]];
     if ([string isEqualToString:@"1"])
     {
         self.needCall = true;
-        //        NSLog(@"true");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     }
     else
     {
         self.needCall = false;
-        //        NSLog(@"false");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
-    
-    //    //一下是切换听筒还是扬声器播放；
-    //    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback])
-    //    {
-    //        //切换为听筒播放
-    //        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    ////        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为听筒模式"];
-    //        //[self showTipInfo:@"切换为听筒模式"];
-    //    }
-    //    else
-    //    {
-    //        //切换为扬声器播放
-    //        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    //        
-    ////        [self jsSuccessWithName:@"uexAudio.cbReceiver" opId:0 dataType:0 strData:@"切换为扬声器模式"];
-    //        //[self showTipInfo:@"切换为扬声器模式"];
-    //        
-    //    }
 }
 
 @end
