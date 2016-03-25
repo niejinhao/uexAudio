@@ -13,9 +13,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AMRPlayer.h"
-#import "EUtility.h"
 #import "EUExAudio.h"
-@class EUExAudio;
 
 @protocol PlayManagerDelegate <NSObject>
 
@@ -28,31 +26,34 @@
 
 @class AMRPlayer;
 @interface PlayerManager : NSObject  <AMRPlayerDelegate>{
-    EUExAudio * euexObj;
-    
 	AMRPlayer* _player;
 	NSString* _currentFileName;
 	
 	BOOL _playStatus;
 	
 	BOOL _recordStatus;
-	
+    
+	EUExAudio * euexObj;
+    
 	id<PlayManagerDelegate> _delegate;
+    
+    
+    NSInteger playTimes;//循环播放次数
+    
 }
 @property(assign)id<PlayManagerDelegate> delegate;
 
 @property (nonatomic,assign) BOOL playStatus;
-@property (nonatomic,assign) NSInteger runloopTime;
-@property (nonatomic,assign) NSInteger playedTime;
-@property (nonatomic,strong) NSString *fileName;
 
 @property (nonatomic,assign) BOOL recordStatus;
 
 @property(nonatomic,copy) NSString* currentFileName;
 
-@property(nonatomic,assign) NSInteger stopStaus;
+@property (assign) NSInteger runloopMode;
 
--(void)initAudioSession:(int)type;
+@property (nonatomic,strong) NSString *fileName;
+
+-(void)initAudioSession:(int)type ;
 
 + (id)getInstance;
 
@@ -62,7 +63,7 @@
 
 - (BOOL)stopRecord;
 
-- (BOOL)playStop:(NSString*)fileName runloopTime:(NSInteger)runloopTime euexObj:(EUExAudio *)inEuexObj;
+- (BOOL)playStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc;
 -(void)pausePlay;
 
 -(id)init;
