@@ -63,7 +63,7 @@
 	int * _destate;
 	int _hasReadSize;
 	FILE* _amrFile;
-	id <AMRPlayerDelegate> _playNotify;
+//	id <AMRPlayerDelegate> _playNotify;
     
 //    NSInteger playTimes;//循环播放次数
     

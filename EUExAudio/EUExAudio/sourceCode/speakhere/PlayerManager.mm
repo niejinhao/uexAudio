@@ -48,15 +48,15 @@ static PlayerManager* g_instance = nil;
 }
 
 
-+ (void)releaseInstance {
-	
-    if (g_instance) {
-		
-        [g_instance release];
-		
-    }
-	
-}
+//+ (void)releaseInstance {
+//	
+//    if (g_instance) {
+//		
+//        [g_instance release];
+//		
+//    }
+//	
+//}
 
 
 -(id)init
@@ -97,27 +97,27 @@ static PlayerManager* g_instance = nil;
 }
 
 
-- (void)dealloc {
-	
-	
-	if (_player) {
-		
-		[_player StopQueue];
-		[_player release];
-		
-	}
-
-	if (_recorder) {
-		
-		_recorder->StopRecord();
-		
-		delete _recorder;
-		
-	}
-	
-    [super dealloc];
-	
-}
+//- (void)dealloc {
+//	
+//	
+//	if (_player) {
+//		
+//		[_player StopQueue];
+//		[_player release];
+//		
+//	}
+//
+//	if (_recorder) {
+//		
+//		_recorder->StopRecord();
+//		
+//		delete _recorder;
+//		
+//	}
+//	
+//    [super dealloc];
+//	
+//}
 
 
 - (BOOL)startRecord:(NSString*)fileName
@@ -131,7 +131,7 @@ static PlayerManager* g_instance = nil;
 		
 		self.recordStatus=YES;
 		
-		_recorder->StartRecord((CFStringRef)fileName);
+		_recorder->StartRecord((__bridge CFStringRef)fileName);
 		
 	}
 	return 0;
@@ -205,25 +205,25 @@ static PlayerManager* g_instance = nil;
     if (runloopMode == -1) {
        [_player startPlay:[_fileName UTF8String] ];
         NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-        [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
     }
     else
     {
         if (playTimes < runloopMode) {
             [_player startPlay:[_fileName UTF8String] ];
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-            [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
         }
         else
         {
             if (runloopMode == playTimes) {
                 NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
-                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
             }
             else
             {
                 NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
-                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
             }
             [_player StopQueue];
             

@@ -29,15 +29,14 @@
 	[playerViewController.moviePlayer setFullscreen:NO]; 
     [playerViewController.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
 	[playerViewController.moviePlayer setScalingMode:MPMovieScalingModeAspectFill];
- 	playerViewController.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(moreBtnClick)] autorelease];
+ 	playerViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(moreBtnClick)];
 
-	playerViewController.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithTitle:@"关闭" 
+	playerViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭"
 																							 style:UIBarButtonItemStylePlain 
 																							target:self 
-																							action:@selector(closeBtnClick)] autorelease];
+																							action:@selector(closeBtnClick)];
  	UINavigationController * navigation = [[UINavigationController alloc] initWithRootViewController:playerViewController];
 	self.nav = navigation;
-	[navigation release];
 	nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
     [EUtility brwView:euexObj.meBrwView presentModalViewController:nav animated:YES];
 }
@@ -58,13 +57,12 @@
 -(void)closeBtnClick {
   	[nav dismissModalViewControllerAnimated:YES];
 }
--(void)dealloc{
-	if (playerViewController) {
-		[playerViewController release];
-		playerViewController = nil;
-	}
- 	[musicSet release];
-	[nav release];
-	[super dealloc];
-}
+//-(void)dealloc{
+//	if (playerViewController) {
+//		playerViewController = nil;
+//	}
+// 	[musicSet release];
+//	[nav release];
+//	[super dealloc];
+//}
 @end

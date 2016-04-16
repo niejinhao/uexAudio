@@ -34,7 +34,7 @@ static int stoptimes = 0;
 
 static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer) {
 	
-    AMRPlayer* player = (AMRPlayer*)inUserData;
+    AMRPlayer* player = (__bridge AMRPlayer*)inUserData;
 	
     [player  audioQueueOutputWithQueue:inAQ queueBuffer:buffer];
 }
@@ -190,7 +190,7 @@ static void audioQueuePropertyListenerProc(
 {
     
     
-    AMRPlayer *player = (AMRPlayer *)inUserData;
+    AMRPlayer *player = (__bridge AMRPlayer *)inUserData;
     if (inID == kAudioQueueProperty_IsRunning) {
         UInt32 value = 0;
         UInt32 length = sizeof(value);
@@ -243,9 +243,9 @@ static void audioQueuePropertyListenerProc(
 	
     // 创建播放用的音频队列(nil:audio队列的间隙线程)
 	
-    AudioQueueNewOutput(&dataFormat, BufferCallback,self, nil, nil, 0, &queue);
+    AudioQueueNewOutput(&dataFormat, BufferCallback,(__bridge void * _Nullable)(self), nil, nil, 0, &queue);
     
-     AudioQueueAddPropertyListener(queue, kAudioQueueProperty_IsRunning, audioQueuePropertyListenerProc, self);
+     AudioQueueAddPropertyListener(queue, kAudioQueueProperty_IsRunning, audioQueuePropertyListenerProc, (__bridge void * _Nullable)(self));
 	
     // 创建并分配缓存空间
 	
@@ -344,14 +344,14 @@ static void audioQueuePropertyListenerProc(
 	
      return readAMRFrame;
  }
-- (void)dealloc {
-   	AudioQueueDispose(queue, TRUE);
- 	Decoder_Interface_exit(_destate);
- 	if (_amrFile) {
- 		fclose( _amrFile );
- 	}
-  	[super dealloc];
- }
+//- (void)dealloc {
+//   	AudioQueueDispose(queue, TRUE);
+// 	Decoder_Interface_exit(_destate);
+// 	if (_amrFile) {
+// 		fclose( _amrFile );
+// 	}
+//  	[super dealloc];
+// }
 
 -(OSStatus)StartQueue
  {   

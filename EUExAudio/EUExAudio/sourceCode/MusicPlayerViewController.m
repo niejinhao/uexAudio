@@ -39,15 +39,13 @@
 	UIToolbar * toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0, 320, 100)];
 	[toolBar setBarStyle:UIBarStyleDefault];
 	NSMutableArray * btnArray = [[NSMutableArray alloc] initWithCapacity:5];
-	[btnArray addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addVolumeClick)] autorelease]];
-	[btnArray addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)] autorelease]];
-	[btnArray addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(forwardClick)] autorelease]];
-	[btnArray addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)] autorelease]];
-	[btnArray addObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)] autorelease]];
+	[btnArray addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addVolumeClick)]];
+	[btnArray addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)]];
+	[btnArray addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(forwardClick)]];
+	[btnArray addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)]];
+	[btnArray addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(forwardClick)]];
 	[toolBar setItems:btnArray];
 	[bottomView addSubview:toolBar];
-	[toolBar release];
- 	[btnArray release];
 	[self.view addSubview:mainView];
 	[self.view addSubview:bottomView];
 
@@ -76,9 +74,9 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [super dealloc];
+//}
 
 
 @end

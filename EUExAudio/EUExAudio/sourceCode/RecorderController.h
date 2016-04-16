@@ -45,7 +45,7 @@
 	UILabel *leftTimeLabel;
 	UILabel *rightTimeLabel;
 	NSString *timeStr;
-	id<RecorderControllerDelegate> _delegate;
+//	id<RecorderControllerDelegate> _delegate;
 }
 @property (nonatomic, assign) id<RecorderControllerDelegate> delegate;
 @property (nonatomic, retain) AVAudioRecorder * current_audioRecorder;

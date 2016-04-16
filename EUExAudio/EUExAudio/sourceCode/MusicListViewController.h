@@ -15,7 +15,7 @@
 @end
 
 @interface MusicListViewController : UITableViewController{
-	id<MusicListDelegate> _delegate;
+//	id<MusicListDelegate> _delegate;
 	NSMutableArray * musicList;
 }
 @property(nonatomic, assign) id<MusicListDelegate> delegate;

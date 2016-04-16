@@ -56,6 +56,8 @@
     NSString *saveNameMp3;
 
 }
+@property (nonatomic , retain) AVPlayer *avPlayer;
+@property (nonatomic , retain) NSURL *avURL;
 @property (nonatomic , retain) AVAudioPlayer *player;
 @property (nonatomic , retain) NSURL *recordedFile;
 @property(nonatomic,retain) NSMutableDictionary *soundPoolDict;

@@ -26,7 +26,6 @@ AVAudioPlayer * currentPlayer;
 		if ([currentPlayer isPlaying]) {
 			[currentPlayer stop];
 		}
-		[currentPlayer release];
 		currentPlayer = nil; 
 	}
     
@@ -46,14 +45,14 @@ AVAudioPlayer * currentPlayer;
         [currentPlayer play];
         
         NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-        [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
     } else {
         if (playTimes < self.runloopMode) {
             //循环一定次数
             [currentPlayer play];
             
             NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-            [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
             
         }
         else
@@ -61,12 +60,12 @@ AVAudioPlayer * currentPlayer;
         
             if (runloopMode == playTimes) {
                 NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
-                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
             }
             else
             {
                 NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
-                [euexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
             }
             
             [self stopMusic];
@@ -104,7 +103,6 @@ AVAudioPlayer * currentPlayer;
 	BOOL result;
 	if (currentPlayer) {
 		[currentPlayer stop];
-		[currentPlayer release];
 		currentPlayer = nil;
 	}
 	NSFileManager * fmanager = [NSFileManager defaultManager];
@@ -130,13 +128,13 @@ AVAudioPlayer * currentPlayer;
         [currentPlayer updateMeters];
 	}
 }
--(void)dealloc {
-	if (currentPlayer) {
-		[currentPlayer release];
-		currentPlayer = nil;
-	}
-    [super dealloc];
-}
+//-(void)dealloc {
+//	if (currentPlayer) {
+//		[currentPlayer release];
+//		currentPlayer = nil;
+//	}
+//    [super dealloc];
+//}
 
 
 

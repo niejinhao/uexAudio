@@ -35,7 +35,7 @@
     
 	EUExAudio * euexObj;
     
-	id<PlayManagerDelegate> _delegate;
+//	id<PlayManagerDelegate> _delegate;
     
     
     NSInteger playTimes;//循环播放次数

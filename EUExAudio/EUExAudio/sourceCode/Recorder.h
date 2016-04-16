@@ -14,7 +14,7 @@
 
 @interface Recorder : NSObject <RecorderControllerDelegate,RecorderAmrControllerDelegate,RecorderMp3ControllerDelegate>{
 	EUExAudio *euexObj;
-	UIPopoverController *popController;
+//	UIPopoverController *popController;
 	UINavigationController *nav;
 	NSInteger soundType;
     NSString* saveNameStr;

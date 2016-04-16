@@ -52,7 +52,7 @@
     AVAudioRecorder *recordermp3;
     NSString *saveNameMp3;
 
-	id<RecorderMp3ControllerDelegate> _delegate;
+//	id<RecorderMp3ControllerDelegate> _delegate;
 }
 @property (nonatomic, assign) id<RecorderMp3ControllerDelegate> delegate;
 //@property (nonatomic, retain) AVAudioRecorder * current_audioRecorder;

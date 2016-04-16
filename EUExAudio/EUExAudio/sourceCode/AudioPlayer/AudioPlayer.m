@@ -37,14 +37,14 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-    [url release];
-    [streamer release];
-    [button release];
-    [timer invalidate];
-}
+//- (void)dealloc
+//{
+//    [super dealloc];
+//    [url release];
+//    [streamer release];
+//    [button release];
+//    [timer invalidate];
+//}
 
 
 - (BOOL)isProcessing
@@ -97,14 +97,12 @@
     [button stopSpin];
 
     button.image = [UIImage imageNamed:playImage];
-    button = nil; // 避免播放器的闪烁问题        
-    [button release];     
+    button = nil; // 避免播放器的闪烁问题
     
     // release streamer
 	if (streamer)
 	{        
 		[streamer stop];
-		[streamer release];
 		streamer = nil;
         
         // remove notification observer for streamer
@@ -151,8 +149,8 @@
             //循环一定次数
             [self stop];
 
-            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)self.playTimes];
-            [_uexObj.meBrwView stringByEvaluatingJavaScriptFromString:jsStr];
+        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)self.playTimes];
+        [EUtility brwView:_uexObj.meBrwView evaluateScript:jsStr];
         if(self.runloopMode ==-1){
             [self play];
         }else if (self.playTimes < self.runloopMode) {
