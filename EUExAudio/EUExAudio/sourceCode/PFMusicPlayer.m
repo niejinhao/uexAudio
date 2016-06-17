@@ -7,7 +7,7 @@
 //
 
 #import "PFMusicPlayer.h"
-#import "EUtility.h"
+#import <AppCanKit/ACEXTScope.h>
 #import "EUExAudio.h"
 #define PER_VOLUME 0.1
 #define PER_FORWARD_BACK 2
@@ -40,34 +40,20 @@ AVAudioPlayer * currentPlayer;
 }
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     playTimes++;
+    
+    @onExit{
+        [euexObj.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.onPlayFinished" arguments:ACArgsPack(@(playTimes))];
+    };
+    
     if (self.runloopMode == -1) {
         //无限循环播放
         [currentPlayer play];
-        
-        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
     } else {
         if (playTimes < self.runloopMode) {
             //循环一定次数
             [currentPlayer play];
-            
-            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
-            
-        }
-        else
-        {
-        
-            if (runloopMode == playTimes) {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
-            }
-            else
-            {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
-            }
-            
+        }else{
             [self stopMusic];
         }
     }

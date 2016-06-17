@@ -15,7 +15,7 @@
 
 #import "PlayerManager.h"
 #import "AQRecorder.h"
-
+#import <AppCanKit/ACEXTScope.h>
 
 AQRecorder* _recorder;
 
@@ -48,15 +48,11 @@ static PlayerManager* g_instance = nil;
 }
 
 
-//+ (void)releaseInstance {
-//	
-//    if (g_instance) {
-//		
-//        [g_instance release];
-//		
-//    }
-//	
-//}
++ (void)releaseInstance {
+	
+    g_instance = nil;
+	
+}
 
 
 -(id)init
@@ -90,9 +86,9 @@ static PlayerManager* g_instance = nil;
 	
 	AudioSessionSetProperty (kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof (audioRouteOverride),&audioRouteOverride);
 	
-	NSString* text=[NSString stringWithFormat:@"initAudioSession:%d",type];
+
 	
-	NSLog(@"text = %@",text);
+
 	
 }
 
@@ -201,29 +197,24 @@ static PlayerManager* g_instance = nil;
         
 	}
     playTimes++;
+    @onExit{
+        [[euexObj webViewEngine]callbackWithFunctionKeyPath:@"uexAudio.onPlayFinished" arguments:ACArgsPack(@(playTimes))];
+    };
    
     if (runloopMode == -1) {
        [_player startPlay:[_fileName UTF8String] ];
-        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
     }
     else
     {
         if (playTimes < runloopMode) {
             [_player startPlay:[_fileName UTF8String] ];
-            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
         }
         else
         {
             if (runloopMode == playTimes) {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
-            }
-            else
-            {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
             }
             [_player StopQueue];
             

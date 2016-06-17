@@ -7,6 +7,6 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
-    #import "EUtility.h"
-    #define UEX_BUNDLE [EUtility bundleForPlugin:@"uexAudio"]
+    #import <AppCanKit/AppCanKit.h>
+    #define UEX_BUNDLE [NSBundle ac_bundleForPlugin:@"uexAudio"]
 #endif

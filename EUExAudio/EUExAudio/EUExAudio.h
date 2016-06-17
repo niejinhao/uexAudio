@@ -5,7 +5,7 @@
 //  Created by zywx on 11-8-26.
 //  Copyright 2011 正益无线. All rights reserved.
 //
-#import "EUExBase.h"
+
 #import "PFMusicPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "PMusicPlayer.h"
@@ -31,7 +31,6 @@
 	int rType;
 	NSString *recordFilePath;
     NSMutableDictionary *soundPoolDict;
-    
     //onLine
     AudioPlayer *_audioPlayer;
     UIProgressView *  progresse;
@@ -40,14 +39,10 @@
     NSTimer * musicTimer;
     AudioButton *  btnAudio ;
     BOOL isPlayed;
-    
     UIView * backBoard;
-    
     BOOL isNeedCloseTimerAutomatic;
-    
     BOOL isNetResource;
     Recorder *recorder;
-    
     //mp3
     AVAudioSession *session;
     NSURL *recordedFile;
@@ -56,8 +51,6 @@
     NSString *saveNameMp3;
 
 }
-@property (nonatomic , retain) AVPlayer *avPlayer;
-@property (nonatomic , retain) NSURL *avURL;
 @property (nonatomic , retain) AVAudioPlayer *player;
 @property (nonatomic , retain) NSURL *recordedFile;
 @property(nonatomic,retain) NSMutableDictionary *soundPoolDict;
@@ -76,6 +69,8 @@
 @property(nonatomic,retain)UISlider * sliderse;
 @property(nonatomic,retain)NSString * musicUrl;
 
-@property(nonatomic,assign)int needCall;
+@property(nonatomic,assign)BOOL needCall;
+
+
 
 @end

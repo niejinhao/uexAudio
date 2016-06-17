@@ -19,10 +19,10 @@
 	NSInteger soundType;
     NSString* saveNameStr;
 }
-@property(nonatomic,retain)UINavigationController * nav;
-@property(nonatomic,assign)UIPopoverController * popController;
+@property(nonatomic,strong)UINavigationController * nav;
+@property(nonatomic,strong)UIPopoverController * popController;
 @property NSInteger soundType;
-@property(nonatomic,retain)NSString * saveNameStr;
+@property(nonatomic,strong)NSString * saveNameStr;
 
 -(void)showRecorder;
 -(id)initWithEuex:(EUExAudio *)euexObj;

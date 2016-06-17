@@ -148,9 +148,8 @@
         
             //循环一定次数
             [self stop];
+        [self.uexObj.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.onPlayFinished" arguments:ACArgsPack(@(self.playTimes))];
 
-        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)self.playTimes];
-        [EUtility brwView:_uexObj.meBrwView evaluateScript:jsStr];
         if(self.runloopMode ==-1){
             [self play];
         }else if (self.playTimes < self.runloopMode) {

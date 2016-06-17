@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexAudio" version="3.0.18" build="18">
-        <info>18:修改播放amr格式时无回调的BUG</info>
+        uexName="uexAudio" version="4.0.0" build="19">
+        <info>19:支持4.0引擎</info>
+        <build>18:修改播放amr格式时无回调的BUG</build>
         <build>17:修改退出后光感继续存在的BUG</build>
         <build>16:添加setProximityState()接口设置光感听筒模式</build>
         <build>15:添加setPlayMode()接口设置播放模式</build>
