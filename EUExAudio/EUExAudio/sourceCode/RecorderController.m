@@ -55,15 +55,12 @@
                              cancelButtonTitle:@"确定"
                              otherButtonTitles:nil];
             [alert show];
-            [alert release];
             return;
         }
         [audioRecorder setDelegate:self];
         [audioRecorder prepareToRecord];
         [audioRecorder setMeteringEnabled:YES];
         self.current_audioRecorder = audioRecorder;
-        [audioRecorder release];
-        [recordSettings release];
     }
 }
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
@@ -91,18 +88,27 @@
     NSString * formatStr = [NSString stringWithFormat:@"%d:%d:%d",(int)hours,(int)minute,(int)second];
 	NSDate * date = [df dateFromString:formatStr];
 	NSString * str = [df stringFromDate:date];
-	[df release];
 	[showTimeLabel setText:str];
 	self.timeStr = str;
 	if (isRed) {
-		[redCircleView setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_turn_off.png"]];
+		[redCircleView setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_turn_off.png"]]];
 		isRed = NO;
 	}else {
-		[redCircleView setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_turn_on.png"]];
+		[redCircleView setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_turn_on.png"]]];
         isRed = YES;
 	}
 }
 
+- (NSString*)getMyBundlePath1:(NSString *)filename
+{
+    NSString * path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"uexAudio.bundle"];
+    NSBundle * libBundle = [NSBundle bundleWithPath: path] ;
+    if ( libBundle && filename ){
+        NSString * s=[[libBundle resourcePath ] stringByAppendingPathComponent : filename];
+        return s;
+    }
+    return nil ;
+}
 
 //获取当前时间字符串 //得到毫秒
 -(NSString*)getCurrentTimeStr {
@@ -111,7 +117,6 @@
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	[dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
 	NSString * curTimeStr=[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:[NSDate date]]];
-	[dateFormatter release];
 	return curTimeStr;
 }
 
@@ -143,7 +148,6 @@
  		NSDate *zoneDate = [df dateFromString:zoneTime];
   		NSDate *localeDate = [zoneDate dateByAddingTimeInterval:timeInter];
  		NSString *textStr = [df stringFromDate:localeDate];
-  		[df release];
 		if (leftTimeLabel) {
 			[leftTimeLabel setText:textStr];
 		}
@@ -154,7 +158,7 @@
 
 -(void)sliderChange:(UISlider *)sender{
 	if (sender.value == sender.maximumValue) {
-		[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
+		[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
 		[audioPlayer stop];
 		[playBtn setSelected:NO];
 	}
@@ -166,7 +170,6 @@
  		NSDate *zoneDate =  [df dateFromString:zoneTime];
   		NSDate *localeDate = [zoneDate dateByAddingTimeInterval:timeInter];
  		NSString *textStr = [df stringFromDate:localeDate];
-  		[df release];
 		[leftTimeLabel setText:textStr];
 	}
 	if (audioPlayer) {
@@ -205,7 +208,6 @@
 	[slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
 	slider.value = 0;
 	self.playSlider = slider;
-	[slider release];
 	[statusView addSubview:playSlider];
 	//left label
 	UILabel * leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 30, 80, 14)];
@@ -213,7 +215,6 @@
 	[leftLabel setBackgroundColor:[UIColor clearColor]];
  	[leftLabel setTextColor:[UIColor whiteColor]];
 	self.leftTimeLabel = leftLabel;
-	[leftLabel release];
 	[statusView addSubview:leftTimeLabel];
 	//right label
 	UILabel * rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(202, 30, 80, 14)];
@@ -221,7 +222,6 @@
 	[rightLabel setBackgroundColor:[UIColor clearColor]];
  	[rightLabel setTextColor:[UIColor whiteColor]];
 	self.rightTimeLabel = rightLabel;
-	[rightLabel release];
 	[statusView addSubview:rightTimeLabel];
 	if (current_audioRecorder) {
 		[current_audioRecorder stop];
@@ -233,7 +233,7 @@
 -(void)startRecord {
 	if (audioPlayer) {
 		[audioPlayer stop];
-		[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
+		[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
 		
 	}
 	if (playSlider) {
@@ -272,7 +272,6 @@
 	[player setDelegate:self];
 	[player prepareToPlay];
 	self.audioPlayer = player;
-	[player release];
 	[audioPlayer play];
 	sliderTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(sliderDisplay) userInfo:nil repeats:YES];
 	playSlider.minimumValue = 0;
@@ -282,7 +281,7 @@
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
 	if (playBtn) {
 		[playBtn setSelected:NO];
-		[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
+		[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
 		
 	}
 	if ([sliderTimer isValid]) {
@@ -299,7 +298,7 @@
 -(void)stopPlay{
 	if (playBtn) {
 		[playBtn setSelected:NO];
-		[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
+		[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
 		
 	}
 	if (audioPlayer) {
@@ -318,15 +317,15 @@
 -(void)playBtnClick:(id)sender{
 	UIButton *senderBtn = (UIButton *)sender;
 	if ([senderBtn isSelected]) {
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_selected.png"] forState:UIControlStateHighlighted];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_disabled.png"] forState:UIControlStateDisabled];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_selected.png"]] forState:UIControlStateHighlighted];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_disabled.png"]] forState:UIControlStateDisabled];
 		[senderBtn setSelected:	NO];
  		[self stopPlay];
 	}else {
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/parse_narmal.png"] forState:UIControlStateNormal];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/parse_focus.png"] forState:UIControlStateHighlighted];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/parse_disable.png"] forState:UIControlStateDisabled];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"parse_narmal.png"]] forState:UIControlStateNormal];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"parse_focus.png"]] forState:UIControlStateHighlighted];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"parse_disable.png"]] forState:UIControlStateDisabled];
 		[senderBtn setSelected:YES];
 		[self playRecord];
 	}
@@ -342,17 +341,17 @@
 	}
 	UIButton *senderBtn = (UIButton *)sender;
 	if ([senderBtn isSelected]) {
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_normal.png"] forState:UIControlStateNormal];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_pressed.png"] forState:UIControlStateHighlighted];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_disabled.png"] forState:UIControlStateDisabled];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_normal.png"]] forState:UIControlStateNormal];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_pressed.png"]] forState:UIControlStateHighlighted];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_disabled.png"]] forState:UIControlStateDisabled];
  		[useBtn setEnabled:YES];
 		[playBtn setEnabled:YES];
 		[senderBtn setSelected:	NO];
  		[self stopRecorder];
  	}else {
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_stop_normal.png"] forState:UIControlStateNormal];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_stop_pressed.png"] forState:UIControlStateHighlighted];
-		[senderBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_stop_disabled.png"] forState:UIControlStateDisabled];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_stop_normal.png"]] forState:UIControlStateNormal];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_stop_pressed.png"]] forState:UIControlStateHighlighted];
+		[senderBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_stop_disabled.png"]] forState:UIControlStateDisabled];
 		[useBtn setEnabled:NO];
 		[playBtn setEnabled:NO];
 		[senderBtn setSelected:YES];
@@ -416,10 +415,10 @@
 	second = 0;
 	hours = 0;
 	[self.view setBackgroundColor:[UIColor blackColor]];
-	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(closeBtnClick)] autorelease];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(closeBtnClick)];
 	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
 	//bg view
-	UIImage * bguexAudio = [UIImage imageNamed:@"uexAudio/plugin_audio_recorder_bg.png"];
+	UIImage * bguexAudio = [UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_bg.png"]];
 	bgView = [[UIImageView alloc] initWithImage:bguexAudio];
     if ([[[UIDevice currentDevice] systemVersion] floatValue]<7.0) {
         [bgView setFrame:self.view.bounds];
@@ -433,13 +432,13 @@
 	[bgView setUserInteractionEnabled:YES];
 	[bgView setContentMode:UIViewContentModeScaleToFill];
 	//status view;
-	UIImage * statusViewuexAudio = [UIImage imageNamed:@"uexAudio/plugin_audio_recorder_center_bg.png"];
+	UIImage * statusViewuexAudio = [UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_center_bg.png"]];
 	statusView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 220)];
 	[statusView setImage:statusViewuexAudio];
 	[statusView setUserInteractionEnabled:YES];
 	//red circle
 	redCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(48, 40, 38, 38)];
-	[redCircleView setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_turn_off.png"]];
+	[redCircleView setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_turn_off.png"]]];
 	[statusView addSubview:redCircleView];
 	//time view
 	
@@ -452,12 +451,12 @@
 	
 	//status image
 	trendsImage = [[UIImageView alloc] initWithFrame:CGRectMake(30, 100, 250, 100)];
-	[trendsImage setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_status.png"]];
+	[trendsImage setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_status.png"]]];
 	[statusView addSubview:trendsImage];
 	[bgView addSubview:statusView];
 	
 	//bottom background
-	UIImage  * dotImage = [[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_bg_dot.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:20];
+	UIImage  * dotImage = [[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_bg_dot.png"]] stretchableImageWithLeftCapWidth:20 topCapHeight:20];
     float dotH = 198;
     if (IS_IPHONE_5) {
         dotH = 568 - 218 - 70;
@@ -466,45 +465,43 @@
 	[bottomBgView setImage:dotImage];
 	[bottomBgView setUserInteractionEnabled:YES];
 	//bottomview
-	bottomView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uexAudio/footerbg.png"]];
+	bottomView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"footerbg.png"]]];
 	[bottomView setFrame:CGRectMake(0,bottomBgView.bounds.size.height - 50, 320, 50)];
 	[bottomView setUserInteractionEnabled:YES];
 	
 	
 	//play btn
 	playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-	[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_normal.png"] forState:UIControlStateNormal];
-	[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_selected.png"] forState:UIControlStateHighlighted];
-	[playBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_video_play_disabled.png"] forState:UIControlStateDisabled];
+	[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_normal.png"]] forState:UIControlStateNormal];
+	[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_selected.png"]] forState:UIControlStateHighlighted];
+	[playBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_video_play_disabled.png"]] forState:UIControlStateDisabled];
 	[playBtn setFrame:CGRectMake(15, 0, 50, 50)];
 	[playBtn setEnabled:NO];
 	[playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 	[bottomView addSubview:playBtn];
 	
 	useBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-	[useBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_use_normal.png"] forState:UIControlStateNormal];
-	[useBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_use_pressed.png"] forState:UIControlStateHighlighted];
-	[useBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_use_disabled.png"] forState:UIControlStateDisabled];
+	[useBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_use_normal.png"]] forState:UIControlStateNormal];
+	[useBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_use_pressed.png"]] forState:UIControlStateHighlighted];
+	[useBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_use_disabled.png"]] forState:UIControlStateDisabled];
 	[useBtn setFrame:CGRectMake(255, 0, 50, 50)];
 	[useBtn setEnabled:NO];
 	[useBtn addTarget:self action:@selector(useBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 	[bottomView addSubview:useBtn];
 	
 	//two lines
-	UIImageView * imageLeft = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uexAudio/plugin_arrow_left.png"]];
-	UIImageView * imageRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uexAudio/plugin_arrow_right.png"]];
+	UIImageView * imageLeft = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_arrow_left.png"]]];
+	UIImageView * imageRight = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_arrow_right.png"]]];
 	[imageLeft setFrame:CGRectMake(85, 0, 26, 50)];
 	[imageRight setFrame:CGRectMake(209, 0, 26, 50)];
 	[bottomView addSubview:imageLeft];
 	[bottomView addSubview:imageRight];
-	[imageRight release];
-	[imageLeft release];
 	
 	//start btn
 	startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-	[startBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_normal.png"] forState:UIControlStateNormal];
-	[startBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_pressed.png"] forState:UIControlStateHighlighted];
-	[startBtn setImage:[UIImage imageNamed:@"uexAudio/plugin_audio_recorder_record_disabled.png"] forState:UIControlStateDisabled];
+	[startBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_normal.png"]] forState:UIControlStateNormal];
+	[startBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_pressed.png"]] forState:UIControlStateHighlighted];
+	[startBtn setImage:[UIImage imageWithContentsOfFile:[self getMyBundlePath1:@"plugin_audio_recorder_record_disabled.png"]] forState:UIControlStateDisabled];
 	[startBtn setFrame:CGRectMake(135, 0, 50, 50)];
 	[startBtn setEnabled:YES];
 	[startBtn addTarget:self action:@selector(startBtnCick:) forControlEvents:UIControlEventTouchUpInside];
@@ -547,28 +544,28 @@
 }
 
 
-- (void)dealloc {
-    [current_audioRecorder release];
-	[savePath release];
-    if (self.saveNameStr) {
-        self.saveNameStr=nil;
-    }
-	[audioPlayer release];
-	[playSlider release];
-	[trendsImage release];
-	[redCircleView release];
-	[bgView release];
-	[bottomView release];
-	[playBtn release];
-	[useBtn release];
-	[bottomBgView release];
-	[statusView release];
-	[euexAudio release];
-	[startBtn release];
-	[showTimeLabel release];
-	[leftTimeLabel release];
-	[rightTimeLabel release];
-	[timeStr release];
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [current_audioRecorder release];
+//	[savePath release];
+//    if (self.saveNameStr) {
+//        self.saveNameStr=nil;
+//    }
+//	[audioPlayer release];
+//	[playSlider release];
+//	[trendsImage release];
+//	[redCircleView release];
+//	[bgView release];
+//	[bottomView release];
+//	[playBtn release];
+//	[useBtn release];
+//	[bottomBgView release];
+//	[statusView release];
+//	[euexAudio release];
+//	[startBtn release];
+//	[showTimeLabel release];
+//	[leftTimeLabel release];
+//	[rightTimeLabel release];
+//	[timeStr release];
+//    [super dealloc];
+//}
 @end

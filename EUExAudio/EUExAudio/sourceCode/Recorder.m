@@ -30,7 +30,6 @@
             recController.saveNameStr = self.saveNameStr;
         }
 		nav = [[UINavigationController alloc] initWithRootViewController:recController];
-		[recController release];
         
 		if(320 != SCREEN_WIDTH && [EUtility isIpad]){
 			popController = [[UIPopoverController alloc] initWithContentViewController:nav];
@@ -48,7 +47,6 @@
             //NSLog(@"recController.saveNameStr------>>>>%@",recController.saveNameStr);
         }
         nav = [[UINavigationController alloc] initWithRootViewController:recController];
-        [recController release];
         
         if(320 != SCREEN_WIDTH && [EUtility isIpad]){
             popController = [[UIPopoverController alloc] initWithContentViewController:nav];
@@ -66,7 +64,6 @@
             amrController.saveNameStr = self.saveNameStr;
         }
         nav = [[UINavigationController alloc] initWithRootViewController:amrController];
-        [amrController release];
         
         if(320 != SCREEN_WIDTH && [EUtility isIpad]) {
             popController = [[UIPopoverController alloc] initWithContentViewController:nav];
@@ -84,18 +81,18 @@
 	}
 }
 
--(void)dealloc {
-	if (nav) {
-		[nav release];
-		nav = nil;
-	}
-    if (popController) {
-        [popController release];
-        popController=nil;
-    }
-    if (self.saveNameStr) {
-        self.saveNameStr = nil;
-    }
-	[super dealloc];
-}
+//-(void)dealloc {
+//	if (nav) {
+//		[nav release];
+//		nav = nil;
+//	}
+//    if (popController) {
+//        [popController release];
+//        popController=nil;
+//    }
+//    if (self.saveNameStr) {
+//        self.saveNameStr = nil;
+//    }
+//	[super dealloc];
+//}
 @end

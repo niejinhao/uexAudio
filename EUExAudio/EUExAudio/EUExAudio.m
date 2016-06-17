@@ -39,50 +39,50 @@
     return self;
 }
 
--(void)dealloc{
-    if (pfPlayer) {
-        [pfPlayer release];
-        pfPlayer = nil;
-    }
-    if (currentRecorder) {
-        [currentRecorder release];
-        currentRecorder = nil;
-    }
-    if (musicPlayer) {
-        [musicPlayer release];
-        musicPlayer  = nil;
-    }
-    if (amrPath) {
-        [amrPath release];
-        amrPath = nil;
-    }
-    if (recordFilePath) {
-        [recordFilePath release];
-        recordFilePath = nil;
-    }
-    if (backBoard) {
-        [backBoard release];
-        backBoard=nil;
-    }
-    if (btnAudio) {
-        [btnAudio release];
-        btnAudio =nil;
-    }
-    if (progresse) {
-        [progresse release];
-        progresse = nil;
-    }
-    if (_audioPlayer) {
-        [_audioPlayer release];
-        _audioPlayer = nil;
-    }
-    if (recorder) {
-        [recorder release];
-    }
-    self.sliderse=nil;
-    self.musicUrl=nil;
-    [super dealloc];
-}
+//-(void)dealloc{
+//    if (pfPlayer) {
+//        [pfPlayer release];
+//        pfPlayer = nil;
+//    }
+//    if (currentRecorder) {
+//        [currentRecorder release];
+//        currentRecorder = nil;
+//    }
+//    if (musicPlayer) {
+//        [musicPlayer release];
+//        musicPlayer  = nil;
+//    }
+//    if (amrPath) {
+//        [amrPath release];
+//        amrPath = nil;
+//    }
+//    if (recordFilePath) {
+//        [recordFilePath release];
+//        recordFilePath = nil;
+//    }
+//    if (backBoard) {
+//        [backBoard release];
+//        backBoard=nil;
+//    }
+//    if (btnAudio) {
+//        [btnAudio release];
+//        btnAudio =nil;
+//    }
+//    if (progresse) {
+//        [progresse release];
+//        progresse = nil;
+//    }
+//    if (_audioPlayer) {
+//        [_audioPlayer release];
+//        _audioPlayer = nil;
+//    }
+//    if (recorder) {
+//        [recorder release];
+//    }
+//    self.sliderse=nil;
+//    self.musicUrl=nil;
+//    [super dealloc];
+//}
 
 
 -(void)open:(NSMutableArray *)inArguments {
@@ -128,82 +128,9 @@
         }
     }
 }
-// 获取文件播放格式，amr #!AMR\n    mp3 ID3\n    car caff\n
-- (NSString *)file:(NSString *)path
-{
-    // 打开文件~
-    FILE *pF  = fopen([path UTF8String], "r");
-    
-    int WhichLine=0;             //指定要读取哪一行
-    int CurrentIndex=0;             //当前读取的行
-    char StrLine[1024];             //每行最大读取的字符数,可根据实际情况扩大
-    if(pF == NULL) //判断文件是否存在及可读
-    {
-        printf("error!");
-        return nil;
-        
-    }
-    
-    while (!feof(pF))
-    {
-        
-        if (CurrentIndex==WhichLine)
-        {
-            fgets(StrLine,1024,pF);  //读取一行
-            NSString *string = [[NSString alloc]initWithCString:StrLine encoding:NSUTF8StringEncoding];
-            
-            NSLog(@"%@",string);
-            return string;
-            //            printf("StrLine  %s\n", StrLine); //输出
-            
-        }
-        fgets(StrLine,1024,pF);  //读取一行,并定位到下一行
-        CurrentIndex++;
-        
-        //        printf("%s\n", StrLine); //输出
-    }
-    fclose(pF);                     //关闭文件
-    return nil;
-}
-
-
-//光感事件，使用近距离传感器，当接近耳朵时，调用听筒模式，远离时采用功放模式（也可以自定义）
-
--(void)proximityStateChanged:(NSNotificationCenter *)notification;
-{
-    if ([[UIDevice currentDevice] proximityState] == YES) {
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    }else{
-        
-        if (self.needCall==true)
-        {
-            //切换为听筒播放
-            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-        }else{
-            //切换为扬声器播放
-            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-        }
-    }
-}
-
-- (void)setProximityState:(NSMutableArray *)inArray
-{
-    NSString *string = [inArray objectAtIndex:0];
-    if ([string isEqualToString:@"1"]) {
-        [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
-    }
-    else
-    {
-        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
-        
-    }
-    
-}
 
 -(void)play:(NSMutableArray *)inArguments {
-    
+
     if (self.needCall==true)
     {
         //切换为听筒播放
@@ -212,7 +139,7 @@
         //切换为扬声器播放
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
-    
+
     if ([inArguments count] > 0) {
         self.runloopTime = [[inArguments objectAtIndex:0] integerValue];
     }
@@ -224,18 +151,18 @@
     } else {
         //
         NSInteger inRunloopMode = [[inArguments objectAtIndex:0] intValue];
-        
+
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
             //
             amrMgr.runloopMode = inRunloopMode;
-            
+
             [amrMgr playStop:amrPath  euexObjc:self];
             return;
         }
         if (pfPlayer) {
             if ([inArguments count] > 0) {
-                
+
                 pfPlayer.runloopMode = inRunloopMode;
                 if ([pfPlayer playMusic] == NO) {
                     [super jsFailedWithOpId:0 errorCode:1010203 errorDes:UEX_ERROR_DESCRIBE_FILE_FORMAT];
@@ -329,6 +256,80 @@
     }
 }
 
+
+// 获取文件播放格式，amr #!AMR\n    mp3 ID3\n    car caff\n
+- (NSString *)file:(NSString *)path
+{
+    // 打开文件~
+    FILE *pF  = fopen([path UTF8String], "r");
+    
+    int WhichLine=0;             //指定要读取哪一行
+    int CurrentIndex=0;             //当前读取的行
+    char StrLine[1024];             //每行最大读取的字符数,可根据实际情况扩大
+    if(pF == NULL) //判断文件是否存在及可读
+    {
+        printf("error!");
+        return nil;
+        
+    }
+    
+    while (!feof(pF))
+    {
+        
+        if (CurrentIndex==WhichLine)
+        {
+            fgets(StrLine,1024,pF);  //读取一行
+            NSString *string = [[NSString alloc]initWithCString:StrLine encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"%@",string);
+            return string;
+            //            printf("StrLine  %s\n", StrLine); //输出
+            
+        }
+        fgets(StrLine,1024,pF);  //读取一行,并定位到下一行
+        CurrentIndex++;
+        
+        //        printf("%s\n", StrLine); //输出
+    }
+    fclose(pF);                     //关闭文件
+    return nil;
+}
+
+
+//光感事件，使用近距离传感器，当接近耳朵时，调用听筒模式，远离时采用功放模式（也可以自定义）
+
+-(void)proximityStateChanged:(NSNotificationCenter *)notification;
+{
+    if ([[UIDevice currentDevice] proximityState] == YES) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{
+        
+        if (self.needCall==true)
+        {
+            //切换为听筒播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        }else{
+            //切换为扬声器播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        }
+    }
+}
+
+- (void)setProximityState:(NSMutableArray *)inArray
+{
+    NSString *string = [inArray objectAtIndex:0];
+    if ([string isEqualToString:@"1"]) {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
+    }
+    else
+    {
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
+        
+    }
+    
+}
 -(void)volumeUp:(NSMutableArray *)inArguments {
     if (!isNetResource) {
         if (isAmr) {
@@ -466,7 +467,7 @@
             }
             if (soundType == 2) {
                 saveNameStr = [NSString stringWithFormat:@"%@.mp3",inSaveNameStr];
-                saveNameMp3 = [[NSString stringWithFormat:@"%@",inSaveNameStr] retain];
+                saveNameMp3 = [NSString stringWithFormat:@"%@",inSaveNameStr];
             }
             
             if (saveNameStr != nil) {
@@ -483,7 +484,6 @@
                                                            cancelButtonTitle:@"取消"
                                                            otherButtonTitles:@"确定",nil];
                     [alert show];
-                    [alert release];
                     return;
                 }
             }
@@ -518,15 +518,12 @@
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
         return;
     }
     [audioRecorder setDelegate:self];
     [audioRecorder prepareToRecord];
     [audioRecorder setMeteringEnabled:YES];
     self.currentRecorder = audioRecorder;
-    [audioRecorder release];
-    [recordSettings release];
 }
 
 
@@ -537,7 +534,6 @@
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString * curTimeStr=[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:[NSDate date]]];
-    [dateFormatter release];
     return curTimeStr;
 }
 
@@ -639,7 +635,7 @@
     @finally {
         
         NSError * playerError;
-        AVAudioPlayer * audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[[[NSURL alloc] initFileURLWithPath:mp3FilePath] autorelease] error:&playerError];
+        AVAudioPlayer * audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[[NSURL alloc] initFileURLWithPath:mp3FilePath] error:&playerError];
         self.player = audioPlayer;
         player.volume = 1.0f;
         if (player == nil) {
@@ -647,12 +643,11 @@
         }
         [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategorySoloAmbient error: nil];
         player.delegate = self;
-        [audioPlayer release];
     }
 }
 -(void)startBackgroundRecordMP3 {
     NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/downloadFile.caf"];
-    self.recordedFile = [[[NSURL alloc] initFileURLWithPath:path] autorelease];
+    self.recordedFile = [[NSURL alloc] initFileURLWithPath:path];
     session = [AVAudioSession sharedInstance];
     session.delegate = self;
     NSError * sessionError;
@@ -678,7 +673,6 @@
     recordermp3 = [[AVAudioRecorder alloc] initWithURL:recordedFile settings:settings error:nil];
     [recordermp3 prepareToRecord];
     [recordermp3 record];
-    [settings release];
 }
 
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
@@ -698,7 +692,7 @@
                 saveNameStr = [NSString stringWithFormat:@"%@.caf",inSaveNameStr];
             }if (backgroundSoundType == 2) {
                 saveNameStr = [NSString stringWithFormat:@"%@.mp3",inSaveNameStr];
-                saveNameMp3 = [[NSString stringWithFormat:@"%@",inSaveNameStr] retain];
+                saveNameMp3 = [NSString stringWithFormat:@"%@",inSaveNameStr];
             }
             if (saveNameStr != nil) {
                 if ([self isfileExisted:saveNameStr]) { //已经存在 则提示是否进行替换
@@ -714,7 +708,6 @@
                                                            cancelButtonTitle:@"取消"
                                                            otherButtonTitles:@"确定",nil];
                     [alert show];
-                    [alert release];
                     return;
                 }
             }
@@ -740,7 +733,6 @@
     if (backgroundSoundType==2) {
         [recordermp3 stop];
         if(recordermp3) {
-            [recordermp3 release];
             recordermp3 = nil;
         }
         [self audio_PCMtoMP3];
@@ -771,7 +763,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 
 -(void)openSoundPool:(NSMutableArray *)inArguments {
     if (!self.soundPoolDict) {
-        self.soundPoolDict = [[[NSMutableDictionary alloc] initWithCapacity:5] autorelease];
+        self.soundPoolDict = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
 }
 -(void)addSound:(NSMutableArray *)inArguments {
@@ -784,7 +776,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
         }
         SystemSoundID soundFileObject;
         NSString * absPath = [super absPath:soundPath];
-        OSStatus err = AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:absPath], &soundFileObject);
+        OSStatus err = AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:absPath], &soundFileObject);
         if (err || !soundPoolDict) {
             [super jsFailedWithOpId:0 errorCode:1011002 errorDes:UEX_ERROR_DESCRIBE_FILE_OPEN];
         } else {
@@ -810,7 +802,6 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 -(void)closeSoundPool:(NSMutableArray *)inArguments{
     if (soundPoolDict) {
         [soundPoolDict removeAllObjects];
-        [soundPoolDict release];
         soundPoolDict = nil;
     }
 }
@@ -821,30 +812,30 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 }
 
 -(void)clean{
-    if (currentRecorder) {
-        [currentRecorder release];
-        currentRecorder = nil;
-    }
-    if (recordFilePath) {
-        [recordFilePath release];
-        recordFilePath  = nil;
-    }
-    if (pfPlayer) {
-        [pfPlayer release];
-        pfPlayer = nil;
-    }
-    if (self.soundPoolDict) {
-        [soundPoolDict release];
-        soundPoolDict = nil;
-    }
-    if (amrPath) {
-        [amrPath release];
-        amrPath  = nil;
-    }
-    
-    if (self.alert_Arguments) {
-        self.alert_Arguments=nil;
-    }
+//    if (currentRecorder) {
+//        [currentRecorder release];
+//        currentRecorder = nil;
+//    }
+//    if (recordFilePath) {
+//        [recordFilePath release];
+//        recordFilePath  = nil;
+//    }
+//    if (pfPlayer) {
+//        [pfPlayer release];
+//        pfPlayer = nil;
+//    }
+//    if (self.soundPoolDict) {
+//        [soundPoolDict release];
+//        soundPoolDict = nil;
+//    }
+//    if (amrPath) {
+//        [amrPath release];
+//        amrPath  = nil;
+//    }
+//    
+//    if (self.alert_Arguments) {
+//        self.alert_Arguments=nil;
+//    }
     //    退出后，光感取消
     [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
@@ -860,16 +851,13 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     valume.text = @"音量";
     valume.backgroundColor = [UIColor clearColor];
     [backBoard addSubview:valume];
-    [valume release];
     MPVolumeView * volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(90, 70, 200, 40)];
     [backBoard addSubview:volumeView];
-    [volumeView release];
     
     UILabel * valumee = [[UILabel alloc]initWithFrame:CGRectMake(10, 135, 45, 30)];
     valumee.text = @"进度";
     valumee.backgroundColor = [UIColor clearColor];
     [backBoard addSubview:valumee];
-    [valumee release];
     
     progresse = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
     progresse.frame = CGRectMake(90, 140, 200, 0);
@@ -898,7 +886,6 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     
     UITapGestureRecognizer * tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sliderTape:)];
     [slider addGestureRecognizer:tapGest];
-    [tapGest release];
     
     slider.backgroundColor = [UIColor clearColor];
     NSString * slidepath = [[NSBundle mainBundle]pathForResource:@"uexAudioOnline/drage_null" ofType:@"png"];
@@ -907,7 +894,6 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     [slider setMaximumTrackImage:sImage forState:UIControlStateNormal];
     [backBoard addSubview:slider];
     self.sliderse = slider;
-    [slider release];
 }
 -(void)sliderTape:(UITapGestureRecognizer *)gesture {
     UISlider * slider = (UISlider *)gesture.view;
@@ -979,8 +965,6 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
 -(void)closePlayer:(NSMutableArray *)datas {
     if (isNetResource) {
         [_audioPlayer stop];
-        [_audioPlayer release];
-        [btnAudio release];
         btnAudio=nil;
         _audioPlayer=nil;
         if (musicTimer) {

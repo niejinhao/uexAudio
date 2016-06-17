@@ -46,7 +46,7 @@
     UILabel *leftTimeLabel;
     UILabel *rightTimeLabel;
     NSTimer *sliderTimer;
-	id<RecorderAmrControllerDelegate> _delegate;
+//	id<RecorderAmrControllerDelegate> _delegate;
 	int recordFileLength;
 }
 @property (nonatomic,assign) id<RecorderAmrControllerDelegate> delegate;

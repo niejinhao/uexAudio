@@ -57,7 +57,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     NSInteger row = [indexPath row];
     // Configure the cell...
@@ -145,10 +145,10 @@
 }
 
 
-- (void)dealloc {
-	[musicList release];
-    [super dealloc];
-}
+//- (void)dealloc {
+//	[musicList release];
+//    [super dealloc];
+//}
 
 
 @end

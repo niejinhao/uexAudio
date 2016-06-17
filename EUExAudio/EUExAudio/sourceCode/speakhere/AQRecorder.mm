@@ -526,7 +526,7 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 		
 		if (0!=mFileName) {
 			
-			_AmrFile = fopen((const char *)[(NSString *)mFileName UTF8String], "wb+");
+			_AmrFile = fopen((const char *)[(__bridge NSString *)mFileName UTF8String], "wb+");
 			
 			XThrowIfError(0 == _AmrFile, "Amr file create failed");
 			
