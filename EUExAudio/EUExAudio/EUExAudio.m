@@ -390,7 +390,7 @@
 
 //判断文件时候已经存在
 - (BOOL)isfileExisted:(NSString *)fileNameStr {
-    NSString * wgtName = [self.webViewEngine.widget widgetId];
+    NSString * wgtName = [self.webViewEngine.widget appId];
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString * wgtPath = [paths objectAtIndex:0];
     NSString * recorderPath = [NSString stringWithFormat:@"%@/apps/%@/%@/",wgtPath,wgtName,RECORD_DOC_NAME];
@@ -494,7 +494,7 @@
 }
 
 - (NSString *)getRecordFileName:(NSString*)saveNameStr  with_format:(NSString *)format {
-    NSString * wgtName = [self.webViewEngine.widget widgetId];
+    NSString * wgtName = [self.webViewEngine.widget appId];
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString * wgtPath = [paths objectAtIndex:0];
     NSString * recorderPath = [NSString stringWithFormat:@"%@/apps/%@/%@/",wgtPath,wgtName,RECORD_DOC_NAME];

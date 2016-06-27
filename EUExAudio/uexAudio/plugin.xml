@@ -6,18 +6,18 @@
         <method name="pause"></method>
         <method name="stop"></method>
         <method name="replay"></method>
-        <method name ="volumeDown"></method>
+        <method name="volumeDown"></method>
         <method name="volumeUp"></method>
         <method name="openPlayer"></method>
         <method name="record"></method>
         <method name="openSoundPool"></method>
         <method name="addSound"></method>
-        <method name ="playFromSoundPool"></method>
+        <method name="playFromSoundPool"></method>
         <method name="stopFromSoundPool"></method>
         <method name="closeSoundPool"></method>
         <method name="startBackgroundRecord"></method>
-        <method name ="stopBackgroundRecord"></method>
-        <method name ="setPlayMode"></method>
-        <method name ="setProximityState"></method>
+        <method name="stopBackgroundRecord"></method>
+        <method name="setPlayMode"></method>
+        <method name="setProximityState"></method>
 	</plugin>
 </uexplugins>
