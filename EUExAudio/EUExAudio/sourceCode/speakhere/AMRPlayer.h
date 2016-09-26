@@ -83,9 +83,7 @@
                        queueBuffer:(AudioQueueBufferRef)audioQueueBuffer;
 //定义回调（Callback）函数
 
-static void BufferCallback(void *inUserData, AudioQueueRef inAQ,
-						   
-                           AudioQueueBufferRef buffer);
+
 //定义包数据的读取方法
 
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer;

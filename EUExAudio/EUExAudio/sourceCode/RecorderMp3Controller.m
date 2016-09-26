@@ -430,7 +430,7 @@
             [_delegate closeRecorder];
         }
     }else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -450,7 +450,7 @@
             [_delegate closeRecorder];
         }
     }else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     }
     

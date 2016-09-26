@@ -757,9 +757,7 @@
 }
 
 #pragma mark systemsound
-static void completionCallback(SystemSoundID  mySSID, void* myself) {
-    AudioServicesPlaySystemSound(mySSID);
-}
+
 
 -(void)openSoundPool:(NSMutableArray *)inArguments {
     if (!self.soundPoolDict) {

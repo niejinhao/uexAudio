@@ -55,7 +55,7 @@
 	
 }
 -(void)closeBtnClick {
-  	[nav dismissModalViewControllerAnimated:YES];
+  	[nav dismissViewControllerAnimated:YES completion:nil];
 }
 //-(void)dealloc{
 //	if (playerViewController) {

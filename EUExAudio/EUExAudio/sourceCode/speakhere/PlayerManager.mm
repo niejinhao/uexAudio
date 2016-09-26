@@ -32,36 +32,23 @@ AQRecorder* _recorder;
 @synthesize delegate = _delegate;
 //singleton
 
-static PlayerManager* g_instance = nil;
+
 
 
 + (id)getInstance {
-	
-	if (g_instance == nil) {
-		
-		g_instance=[[PlayerManager alloc]init];
-		
-	}
-	
+	static PlayerManager* g_instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        g_instance = [[PlayerManager alloc]init];
+    });
+
 	return g_instance;
 	
 }
 
 
-//+ (void)releaseInstance {
-//	
-//    if (g_instance) {
-//		
-//        [g_instance release];
-//		
-//    }
-//	
-//}
 
-
--(id)init
-
-{
+-(instancetype)init{
 	
 	_playStatus= NO;
 	[self initAudioSession:0];
@@ -81,7 +68,6 @@ static PlayerManager* g_instance = nil;
 	UInt32 category = kAudioSessionCategory_PlayAndRecord;
 	
 	int error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
-	
 	if (error) printf("couldn't set audio category!");
 	
 	

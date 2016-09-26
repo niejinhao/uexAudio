@@ -10,10 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 #include <math.h>
 
-static inline double radians (double degrees) {return degrees * M_PI/180;}
+
 
 NSString *playImage = @"play.png";
 NSString *stopImage = @"stop.png";
+
+@interface AudioButton ()<CAAnimationDelegate>
+
+@end
 
 @implementation AudioButton
 

@@ -280,7 +280,7 @@
             [_delegate closeRecorder];
         }
     } else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -297,7 +297,7 @@
             [_delegate closeRecorder];
         }
     } else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

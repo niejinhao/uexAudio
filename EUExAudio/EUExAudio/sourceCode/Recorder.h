@@ -20,7 +20,7 @@
     NSString* saveNameStr;
 }
 @property(nonatomic,retain)UINavigationController * nav;
-@property(nonatomic,assign)UIPopoverController * popController;
+@property(nonatomic,strong)UIPopoverController * popController;
 @property NSInteger soundType;
 @property(nonatomic,retain)NSString * saveNameStr;
 

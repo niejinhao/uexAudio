@@ -59,7 +59,6 @@
 		5A9E68A618A9CEE300CEF1EA /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E687E18A9CEE300CEF1EA /* CAStreamBasicDescription.cpp */; };
 		5A9E68A718A9CEE300CEF1EA /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688018A9CEE300CEF1EA /* CAXException.cpp */; };
 		5A9E68A818A9CEE300CEF1EA /* MusicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688318A9CEE300CEF1EA /* MusicListViewController.m */; };
-		5A9E68A918A9CEE300CEF1EA /* MusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688518A9CEE300CEF1EA /* MusicPlayerViewController.m */; };
 		5A9E68AA18A9CEE300CEF1EA /* PFMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688718A9CEE300CEF1EA /* PFMusicPlayer.m */; };
 		5A9E68AB18A9CEE300CEF1EA /* PMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688918A9CEE300CEF1EA /* PMusicPlayer.m */; };
 		5A9E68AC18A9CEE300CEF1EA /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E688B18A9CEE300CEF1EA /* Recorder.m */; };
@@ -168,8 +167,6 @@
 		5A9E688118A9CEE300CEF1EA /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		5A9E688218A9CEE300CEF1EA /* MusicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicListViewController.h; sourceTree = "<group>"; };
 		5A9E688318A9CEE300CEF1EA /* MusicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicListViewController.m; sourceTree = "<group>"; };
-		5A9E688418A9CEE300CEF1EA /* MusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerViewController.h; sourceTree = "<group>"; };
-		5A9E688518A9CEE300CEF1EA /* MusicPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerViewController.m; sourceTree = "<group>"; };
 		5A9E688618A9CEE300CEF1EA /* PFMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMusicPlayer.h; sourceTree = "<group>"; };
 		5A9E688718A9CEE300CEF1EA /* PFMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMusicPlayer.m; sourceTree = "<group>"; };
 		5A9E688818A9CEE300CEF1EA /* PMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMusicPlayer.h; sourceTree = "<group>"; };
@@ -304,8 +301,6 @@
 				5A9E687818A9CEE300CEF1EA /* iPublicUtility */,
 				5A9E688218A9CEE300CEF1EA /* MusicListViewController.h */,
 				5A9E688318A9CEE300CEF1EA /* MusicListViewController.m */,
-				5A9E688418A9CEE300CEF1EA /* MusicPlayerViewController.h */,
-				5A9E688518A9CEE300CEF1EA /* MusicPlayerViewController.m */,
 				5A9E688618A9CEE300CEF1EA /* PFMusicPlayer.h */,
 				5A9E688718A9CEE300CEF1EA /* PFMusicPlayer.m */,
 				5A9E688818A9CEE300CEF1EA /* PMusicPlayer.h */,
@@ -515,7 +510,7 @@
 		5AA8D48B188F967200C854BC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = xll;
 				TargetAttributes = {
 					42EE5FDA1C2A43D7007CFCB4 = {
@@ -608,7 +603,6 @@
 			files = (
 				F7E9D2801AB7BA9A00F17A9C /* RecorderMp3Controller.m in Sources */,
 				5A9E68A518A9CEE300CEF1EA /* CADebugPrintf.cpp in Sources */,
-				5A9E68A918A9CEE300CEF1EA /* MusicPlayerViewController.m in Sources */,
 				5A9E68B018A9CEE300CEF1EA /* AQRecorder.mm in Sources */,
 				5A9E68AD18A9CEE300CEF1EA /* RecorderAmrController.m in Sources */,
 				5A9E68B318A9CEE300CEF1EA /* PlayerManager.mm in Sources */,
@@ -698,14 +692,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexAudio/";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -719,7 +719,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "";
@@ -740,14 +740,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexAudio/";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -755,7 +760,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "";

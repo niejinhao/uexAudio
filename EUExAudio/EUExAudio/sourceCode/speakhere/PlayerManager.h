@@ -57,7 +57,7 @@
 
 + (id)getInstance;
 
-+ (void)releaseInstance;
+
 
 - (BOOL)startRecord:(NSString*)fileName;
 
