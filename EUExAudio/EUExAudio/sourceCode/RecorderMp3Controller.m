@@ -7,7 +7,7 @@
 //
 
 #import "RecorderMp3Controller.h"
-#import "EUtility.h"
+
 #import "EUExAudio.h"
 #import <QuartzCore/CALayer.h>
 #import "EUExBaseDefine.h"
@@ -69,10 +69,10 @@
     [recordermp3 record];
 }
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-    PluginLog(@"recoder:successful");
+    ACLogDebug(@"recoder:successful");
 }
 -(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
-    PluginLog(@"recoder:fail error = %@,info = %@",[error domain],[[error userInfo] description]);
+    ACLogDebug(@"recoder:fail error = %@,info = %@",[error domain],[[error userInfo] description]);
 }
 - (void)showTimer{
     
@@ -119,7 +119,7 @@
 }
 
 - (NSString *)getRecordFileName {
-    NSString * wgtName = [EUtility brwViewWidgetId:euexAudio.meBrwView];
+    NSString * wgtName = [euexAudio.webViewEngine.widget widgetId];
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString * wgtPath = [paths objectAtIndex:0];
     wgtPath = [NSString stringWithFormat:@"%@/apps/%@/%@/",wgtPath,wgtName,RECORD_DOC_NAME];
@@ -316,7 +316,7 @@
 -(void)playRecord {
     NSFileManager *fmanager = [NSFileManager defaultManager];
     if ([fmanager fileExistsAtPath:savePath]) {
-        PluginLog(@"file exist and savapath = %@",savePath);
+        ACLogDebug(@"file exist and savapath = %@",savePath);
     }
     NSURL *url = [NSURL fileURLWithPath:savePath];
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
@@ -425,12 +425,12 @@
     if (euexAudio) {
         [euexAudio  uexSuccessWithOpId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT data:savePath];
     }
-    if (320 != SCREEN_WIDTH && [EUtility isIpad]) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if (_delegate&&[_delegate respondsToSelector:@selector(closeRecorder)]) {
             [_delegate closeRecorder];
         }
     }else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissModalViewControllerAnimated:YES];
     }
 }
 
@@ -445,12 +445,12 @@
             [recordermp3 stop];
         }
     }
-    if (320 != SCREEN_WIDTH && [EUtility isIpad]) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if (_delegate&&[_delegate respondsToSelector:@selector(closeRecorder)]) {
             [_delegate closeRecorder];
         }
     }else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissModalViewControllerAnimated:YES];
         
     }
     

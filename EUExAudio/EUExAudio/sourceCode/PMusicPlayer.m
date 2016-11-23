@@ -8,7 +8,7 @@
 
 #import "PMusicPlayer.h"
 #import "EUExAudio.h"
-#import "EUtility.h"
+
 @implementation PMusicPlayer
  @synthesize nav;
 -(id)initWithEuex:(EUExAudio *)euexObj_{
@@ -38,7 +38,8 @@
  	UINavigationController * navigation = [[UINavigationController alloc] initWithRootViewController:playerViewController];
 	self.nav = navigation;
 	nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
-    [EUtility brwView:euexObj.meBrwView presentModalViewController:nav animated:YES];
+    [[euexObj.webViewEngine viewController]presentViewController:nav animated:YES completion:nil];
+
 }
 -(void)moreBtnClick {
 	MusicListViewController *listController = [[MusicListViewController alloc] init];
@@ -55,7 +56,7 @@
 	
 }
 -(void)closeBtnClick {
-  	[nav dismissViewControllerAnimated:YES completion:nil];
+  	[nav dismissModalViewControllerAnimated:YES];
 }
 //-(void)dealloc{
 //	if (playerViewController) {

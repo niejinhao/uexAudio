@@ -7,7 +7,7 @@
 //
 
 #import "RecorderAmrController.h"
-#import "EUtility.h"
+
 #import "EUExAudio.h"
 #import <QuartzCore/CALayer.h>
 #import "EUExBaseDefine.h"
@@ -74,7 +74,7 @@
 }
 
 - (NSString *)getRecordFileName {
-    NSString * wgtid = [EUtility brwViewWidgetId:euexAudio.meBrwView];
+    NSString * wgtid = [[euexAudio.webViewEngine widget] widgetId];
     NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString * wgtPath = [paths objectAtIndex:0];
     NSString *recorderPath = [NSString stringWithFormat:@"%@/apps/%@/%@/",wgtPath,wgtid,RECORD_DOC_NAME];
@@ -185,7 +185,7 @@
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-    PluginLog(@"play success");
+
     if (playBtn) {
         [playBtn setSelected:NO];
         [playBtn setImage:[self getUIImageByPath:@"plugin_video_play_normal.png"] forState:UIControlStateNormal];
@@ -275,12 +275,12 @@
     if (euexAudio) {
         [euexAudio uexSuccessWithOpId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT data:savePath];
     }
-    if (320 != SCREEN_WIDTH && [EUtility isIpad]) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if (_delegate && [_delegate respondsToSelector:@selector(closeRecorder)]) {
             [_delegate closeRecorder];
         }
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissModalViewControllerAnimated:YES];
     }
 }
 
@@ -292,12 +292,12 @@
     if ([pMgr recordStatus] == YES) {
         [pMgr stopRecord];
     }
-    if (320 != SCREEN_WIDTH && [EUtility isIpad]) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if (_delegate&&[_delegate respondsToSelector:@selector(closeRecorder)]) {
             [_delegate closeRecorder];
         }
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissModalViewControllerAnimated:YES];
     }
 }
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

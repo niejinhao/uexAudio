@@ -7,7 +7,7 @@
 //
 
 #import "Recorder.h"
-#import "EUtility.h"
+
 
 @implementation Recorder
 @synthesize popController,nav;
@@ -31,12 +31,13 @@
         }
 		nav = [[UINavigationController alloc] initWithRootViewController:recController];
         
-		if(320 != SCREEN_WIDTH && [EUtility isIpad]){
+		if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
 			popController = [[UIPopoverController alloc] initWithContentViewController:nav];
 			[popController setPopoverContentSize:CGSizeMake(320, 480)];
-            [EUtility brwView:euexObj.meBrwView presentPopover:popController FromRect:CGRectMake(200, 30, 10, 10) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [popController presentPopoverFromRect:CGRectMake(200, 30, 10, 10) inView:euexObj.webViewEngine.webView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+
  		} else {
-            [EUtility brwView:euexObj.meBrwView presentModalViewController:nav animated:YES];
+            [[euexObj.webViewEngine viewController]presentViewController:nav animated:YES completion:nil];
 		}
     }else if(soundType == 2){
         RecorderMp3Controller * recController = [[RecorderMp3Controller alloc] init];
@@ -48,12 +49,13 @@
         }
         nav = [[UINavigationController alloc] initWithRootViewController:recController];
         
-        if(320 != SCREEN_WIDTH && [EUtility isIpad]){
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
             popController = [[UIPopoverController alloc] initWithContentViewController:nav];
             [popController setPopoverContentSize:CGSizeMake(320, 480)];
-            [EUtility brwView:euexObj.meBrwView presentPopover:popController FromRect:CGRectMake(200, 30, 10, 10) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [popController presentPopoverFromRect:CGRectMake(200, 30, 10, 10) inView:euexObj.webViewEngine.webView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
         } else {
-            [EUtility brwView:euexObj.meBrwView presentModalViewController:nav animated:YES];
+            [[euexObj.webViewEngine viewController]presentViewController:nav animated:YES completion:nil];
         }
     }
     else {
@@ -65,12 +67,13 @@
         }
         nav = [[UINavigationController alloc] initWithRootViewController:amrController];
         
-        if(320 != SCREEN_WIDTH && [EUtility isIpad]) {
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
             popController = [[UIPopoverController alloc] initWithContentViewController:nav];
             [popController setPopoverContentSize:CGSizeMake(320, 480)];
-            [EUtility brwView:euexObj.meBrwView presentPopover:popController FromRect:CGRectMake(200, 30, 10, 10) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [popController presentPopoverFromRect:CGRectMake(200, 30, 10, 10) inView:euexObj.webViewEngine.webView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
         } else {
-            [EUtility brwView:euexObj.meBrwView presentModalViewController:nav animated:YES];
+            [[euexObj.webViewEngine viewController]presentViewController:nav animated:YES completion:nil];
         }
     }
 }

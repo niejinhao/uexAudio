@@ -15,7 +15,7 @@
 
 #import "PlayerManager.h"
 #import "AQRecorder.h"
-
+#import <AppCanKit/ACEXTScope.h>
 
 AQRecorder* _recorder;
 
@@ -32,23 +32,32 @@ AQRecorder* _recorder;
 @synthesize delegate = _delegate;
 //singleton
 
-
+static PlayerManager* g_instance = nil;
 
 
 + (id)getInstance {
-	static PlayerManager* g_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        g_instance = [[PlayerManager alloc]init];
-    });
-
+	
+	if (g_instance == nil) {
+		
+		g_instance=[[PlayerManager alloc]init];
+		
+	}
+	
 	return g_instance;
 	
 }
 
 
++ (void)releaseInstance {
+	
+    g_instance = nil;
+	
+}
 
--(instancetype)init{
+
+-(id)init
+
+{
 	
 	_playStatus= NO;
 	[self initAudioSession:0];
@@ -68,6 +77,7 @@ AQRecorder* _recorder;
 	UInt32 category = kAudioSessionCategory_PlayAndRecord;
 	
 	int error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
+	
 	if (error) printf("couldn't set audio category!");
 	
 	
@@ -76,9 +86,9 @@ AQRecorder* _recorder;
 	
 	AudioSessionSetProperty (kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof (audioRouteOverride),&audioRouteOverride);
 	
-	NSString* text=[NSString stringWithFormat:@"initAudioSession:%d",type];
+
 	
-	NSLog(@"text = %@",text);
+
 	
 }
 
@@ -187,29 +197,24 @@ AQRecorder* _recorder;
         
 	}
     playTimes++;
+    @onExit{
+        [[euexObj webViewEngine]callbackWithFunctionKeyPath:@"uexAudio.onPlayFinished" arguments:ACArgsPack(@(playTimes))];
+    };
    
     if (runloopMode == -1) {
        [_player startPlay:[_fileName UTF8String] ];
-        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
     }
     else
     {
         if (playTimes < runloopMode) {
             [_player startPlay:[_fileName UTF8String] ];
-            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
-            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
         }
         else
         {
             if (runloopMode == playTimes) {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)runloopMode];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
-            }
-            else
-            {
-                NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(1)}" ];
-                [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+
             }
             [_player StopQueue];
             
