@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexAudio" version="3.0.19" build="19">
-    <info>19: IDE证书更新</info>
-    <build>18: 修改播放amr格式时无回调的BUG</build>
-    <build>17: 修改退出后光感继续存在的BUG</build>
-    <build>16: 添加setProximityState()接口设置光感听筒模式</build>
-    <build>15: 添加setPlayMode()接口设置播放模式</build>
-    <build>14: 修改audio录的本地录音传到服务器上放不了bug</build>
-    <build>13: 修改amr格式文件路径不存在时播放崩溃</build>
-    <build>12: 改用bundle调用图片资源;添加IDE支持</build>
-    <build>11: 支持后台播放音频，需配置相关权限</build>
-    <build>10: 提高了进行MP3录音的音质，修复了本地录音生成的MP3文件用http网络播放不能正常使用的bug</build>
-    <build>9: 更新lame库，修复在iOS8.2/8.3下可能会引起程序崩溃的bug</build>
-    <build>8: 使用音频界面录制音频支持mp3格式</build>
-    <build>7: 修复第二次录制MP3时录制CAF的BUG</build>
-    <build>6: 修复播放网络音频没有回调的问题，修复播放网络音频无法循环播放的问题</build>
-    <build>5: uexAudio更新libopencore-amrnb.a,libopencore-amrwb.a,libmp3lame.a,支持arm64</build>
-    <build>4: uexAudio插件录音文件名称与文档统一</build>
-    <build>3: 后台录音添加录音格式MP3</build>
-    <build>1: 音乐播放插件,修改使用听筒音的BUG</build>
+  <plugin uexName="uexAudio" version="4.0.0" build="0">
+    <info>0: 音乐播放插件</info>
   </plugin>
 </uexplugins>
