@@ -745,7 +745,7 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
         }
         SystemSoundID soundFileObject;
         NSString * absPath = [super absPath:soundPath];
-        OSStatus err = AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:absPath]), &soundFileObject);
+        OSStatus err = AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:absPath], &soundFileObject);
         if (err || !soundPoolDict) {
             //[super jsFailedWithOpId:0 errorCode:1011002 errorDes:UEX_ERROR_DESCRIBE_FILE_OPEN];
         } else {
