@@ -79,11 +79,21 @@
 		F7E9D2801AB7BA9A00F17A9C /* RecorderMp3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E9D27F1AB7BA9A00F17A9C /* RecorderMp3Controller.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		42F9240B1E487E690046BFB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AA8D48B188F967200C854BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42EE5FDA1C2A43D7007CFCB4;
+			remoteInfo = uexAudioBundle;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		5AA8D491188F967300C854BC /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
 			);
@@ -481,6 +491,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				42F9240C1E487E690046BFB5 /* PBXTargetDependency */,
 			);
 			name = EUExAudio;
 			productName = EUExAudio;
@@ -607,6 +618,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		42F9240C1E487E690046BFB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42EE5FDA1C2A43D7007CFCB4 /* uexAudioBundle */;
+			targetProxy = 42F9240B1E487E690046BFB5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		42EE5FDE1C2A43D7007CFCB4 /* Debug */ = {
