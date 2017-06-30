@@ -597,7 +597,7 @@
     NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/downloadFile.caf"];
     self.recordedFile = [[NSURL alloc] initFileURLWithPath:path];
     session = [AVAudioSession sharedInstance];
-    session.delegate = self;
+    //session.delegate = self;
     NSError * sessionError;
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
     
@@ -627,6 +627,7 @@
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
     //指定文件名 判断该文件是否存在 如果存在则提示用户
     ACArgsUnpack(NSNumber *modeNum,NSString *fileName) = inArguments;
+    backgroundSoundType = [modeNum intValue];
     if (fileName) {
         session = [AVAudioSession sharedInstance];
         [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -661,9 +662,6 @@
         }
 
     }
-    
-    
-    backgroundSoundType = [modeNum intValue];
     if (backgroundSoundType == 0 || backgroundSoundType == 1) {
         //开始后台录音
         [self open_startBackgroundRecord:inArguments];
