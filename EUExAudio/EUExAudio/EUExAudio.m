@@ -58,6 +58,8 @@
     _audioPlayer = nil;
     self.sliderse = nil;
     self.musicUrl = nil;
+    self.recorderWav = nil;
+    self.recordTempFileURL = nil;
 }
 
 
@@ -483,14 +485,11 @@
 
 
 //获取当前时间字符串 //得到毫秒
--(NSString*)getCurrentTimeStr {
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString * curTimeStr=[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:[NSDate date]]];
-
-    return curTimeStr;
+-(NSString*)getCurrentTimeStr
+{
+    NSDateFormatter *dateformat=[[NSDateFormatter  alloc]init];
+    [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    return [dateformat stringFromDate:[NSDate date]];
 }
 
 - (NSString *)getRecordFileName:(NSString*)saveNameStr  with_format:(NSString *)format {
@@ -624,6 +623,25 @@
 
 }
 
+-(void)startBackgroundRecordWAV {
+    NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/downloadFile.caf"];
+    self.recordTempFileURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSDictionary *settings = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
+                               AVSampleRateKey: @8000.00f,
+                               AVNumberOfChannelsKey: @1,
+                               AVLinearPCMBitDepthKey: @16,
+                               AVLinearPCMIsNonInterleaved: @NO,
+                               AVLinearPCMIsFloatKey: @NO,
+                               AVLinearPCMIsBigEndianKey: @NO};
+    NSError *error;
+    self.recorderWav = [[AVAudioRecorder alloc] initWithURL:self.recordTempFileURL settings:settings error:&error];
+    
+    [self.recorderWav prepareToRecord];
+    
+    self.isRecordingWav = [self.recorderWav record];
+    
+}
+
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
     //指定文件名 判断该文件是否存在 如果存在则提示用户
     ACArgsUnpack(NSNumber *modeNum,NSString *fileName) = inArguments;
@@ -642,6 +660,9 @@
             }if (backgroundSoundType == 2) {
                 saveNameStr = [NSString stringWithFormat:@"%@.mp3",inSaveNameStr];
                 saveNameMp3 = [NSString stringWithFormat:@"%@",inSaveNameStr];
+            } else if (backgroundSoundType == 3) {
+                saveNameStr = [NSString stringWithFormat:@"%@.wav",inSaveNameStr];
+                saveNameWav = [NSString stringWithFormat:@"%@",inSaveNameStr];
             }
             if (saveNameStr != nil) {
                 if ([self isfileExisted:saveNameStr]) { //已经存在 则提示是否进行替换
@@ -665,8 +686,10 @@
     if (backgroundSoundType == 0 || backgroundSoundType == 1) {
         //开始后台录音
         [self open_startBackgroundRecord:inArguments];
-    } else {
+    } else if (backgroundSoundType == 2){
         [self startBackgroundRecordMP3];
+    } else if (backgroundSoundType == 3) { //wav
+        [self startBackgroundRecordWAV];
     }
     
 }
@@ -714,6 +737,20 @@
             [cb executeWithArguments:ACArgsPack(recordFilePath)];
             break;
         }
+        case 3: {
+            
+            if (self.isRecordingWav) {
+                NSData *recordedData =[NSData dataWithContentsOfURL:self.recordTempFileURL];
+                NSString *wavFilePath=[self getRecordFileName:saveNameWav with_format:@"wav"];
+                
+                [recordedData writeToFile:wavFilePath atomically:NO];
+                [self.recorderWav stop];
+                [cb executeWithArguments:ACArgsPack(recordFilePath)];
+            }
+            self.isRecordingWav = NO;
+            
+        }
+            break;
         default:
             break;
     }
@@ -786,6 +823,8 @@ static void completionCallback(SystemSoundID  mySSID, void* myself) {
     pfPlayer = nil;
     soundPoolDict = nil;
     self.alert_Arguments = nil;
+    self.recorderWav = nil;
+    self.recordTempFileURL = nil;
     //    退出后，光感取消
     [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];

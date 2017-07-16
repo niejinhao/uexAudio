@@ -49,6 +49,7 @@
     AVAudioPlayer *player;
     AVAudioRecorder *recordermp3;
     NSString *saveNameMp3;
+    NSString *saveNameWav;
 
 }
 @property (nonatomic , retain) AVAudioPlayer *player;
@@ -59,6 +60,10 @@
 @property(nonatomic,copy)NSString *recordFilePath;
 @property(nonatomic,assign)NSInteger runloopTime;
 @property(nonatomic,retain)NSMutableDictionary *alert_Arguments;
+
+@property(nonatomic, strong) AVAudioRecorder *recorderWav;
+@property(nonatomic, strong) NSURL *recordTempFileURL;
+@property (nonatomic)BOOL isRecordingWav;
 
 @property(nonatomic,assign)NSInteger playTimes;
 
