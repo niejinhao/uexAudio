@@ -15,6 +15,7 @@
 
 #import "PlayerManager.h"
 #import "AQRecorder.h"
+#import "EMCDDeviceManager.h"
 
 
 AQRecorder* _recorder;
@@ -136,6 +137,71 @@ AQRecorder* _recorder;
 	}
 	return 0;
 }
+
+- (BOOL)playNewStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc {
+    
+
+    euexObj = ineuexBjc;
+    
+    EMCDDeviceManager *deviceMgr = [EMCDDeviceManager sharedInstance];
+    
+//    NSLog(@"@@@@@@@@@ playNewStop start = %d, ", self.playStatus);
+    
+    if (self.playStatus == NO) {
+        
+//        NSLog(@"@@@@@@@@@ playNewStop start play = %d, ", self.playStatus);
+        
+        
+        
+        __weak typeof(self) weakSelf = self;
+        [deviceMgr asyncPlayingWithPath:fileName completion:^(NSError *error) {
+            
+            
+        
+            if (_delegate&&[_delegate respondsToSelector:@selector(playFinishedNotify)]) {
+                [_delegate playFinishedNotify];
+                
+            }
+            
+            NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
+            [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+            
+            weakSelf.playStatus=NO;
+            
+//            NSLog(@"@@@@@@@@@ playNewStop start play finish = %d, ", self.playStatus);
+            
+        }];
+        
+        self.playStatus = YES;
+    } else {
+        
+        
+        
+        
+        [deviceMgr stopPlaying];
+        self.playStatus=NO;
+        
+//        NSLog(@"@@@@@@@@@ playNewStop start play stop = %d, ", self.playStatus);
+        
+        NSString * jsStr = [NSString stringWithFormat:@"if(uexAudio.onPlayFinished!=null){uexAudio.onPlayFinished(%d)}",(int)playTimes];
+        [EUtility brwView:euexObj.meBrwView evaluateScript:jsStr];
+    }
+    
+    
+    
+    return YES;
+    
+}
+
+-(void)pausePlayNew {
+    
+    EMCDDeviceManager *deviceMgr = [EMCDDeviceManager sharedInstance];
+    [deviceMgr stopPlaying];
+    self.playStatus=NO;
+    
+    
+}
+
 - (BOOL)playStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc
 
 {

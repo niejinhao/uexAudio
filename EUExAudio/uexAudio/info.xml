@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexAudio" version="3.0.19" build="19">
-    <info>19: IDE证书更新</info>
+  <plugin uexName="uexAudio" version="3.0.21" build="21">
+    <info>21: 重构amr录音及播放</info>
+    <build>20: 支持录制wav</build>
+    <build>19: IDE证书更新</build>
     <build>18: 修改播放amr格式时无回调的BUG</build>
     <build>17: 修改退出后光感继续存在的BUG</build>
     <build>16: 添加setProximityState()接口设置光感听筒模式</build>

@@ -17,6 +17,9 @@
 #import "AudioPlayer.h"
 #import "lame.h"
 #import "JSON.h"
+#import "EMVoiceConverter.h"
+#import "EMCDDeviceManager.h"
+
 @implementation EUExAudio{
     int backgroundSoundType;
     
@@ -157,7 +160,9 @@
             //
             amrMgr.runloopMode = inRunloopMode;
 
-            [amrMgr playStop:amrPath  euexObjc:self];
+//            [amrMgr playStop:amrPath  euexObjc:self];
+            
+            [amrMgr playNewStop:amrPath euexObjc:self];
             return;
         }
         if (pfPlayer) {
@@ -200,7 +205,8 @@
     } else {
         if (isAmr == YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
-            [amrMgr pausePlay];
+//            [amrMgr pausePlay];
+            [amrMgr pausePlayNew];
             return;
         }
         if ([pfPlayer pauseMusic] == NO) {
@@ -213,8 +219,9 @@
     if (isAmr == YES) {
         PlayerManager *amrMgr = [PlayerManager getInstance];
         if ([amrMgr playStatus]==YES) {
-            [amrMgr playStop:amrPath euexObjc:self];
-            [amrMgr playStop:amrPath euexObjc:self];
+//            [amrMgr playStop:amrPath euexObjc:self];
+//            [amrMgr playStop:amrPath euexObjc:self];
+            [amrMgr playNewStop:amrPath euexObjc:self];
         }
     } else {
         [pfPlayer replayMusic];
@@ -244,7 +251,8 @@
         if (isAmr==YES) {
             PlayerManager *amrMgr = [PlayerManager getInstance];
             if ([amrMgr playStatus]==YES) {
-                [amrMgr playStop:amrPath euexObjc:self];
+//                [amrMgr playStop:amrPath euexObjc:self];
+                [amrMgr playNewStop:amrPath euexObjc:self];
             }
             return;
         }
@@ -528,14 +536,21 @@
 
 
 //获取当前时间字符串 //得到毫秒
--(NSString*)getCurrentTimeStr {
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString * curTimeStr=[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:[NSDate date]]];
-    return curTimeStr;
+-(NSString*)getCurrentTimeStr
+{
+    NSDateFormatter *dateformat=[[NSDateFormatter  alloc]init];
+    [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    return [dateformat stringFromDate:[NSDate date]];
 }
+
+//{
+//    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+//    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+//    NSString * curTimeStr=[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:[NSDate date]]];
+//    return curTimeStr;
+//}
 
 - (NSString *)getRecordFileName:(NSString*)saveNameStr  with_format:(NSString *)format {
     NSString * wgtName = [EUtility brwViewWidgetId:meBrwView];
@@ -669,10 +684,45 @@
     //线性采样位数
     //[recordSettings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
     //音频质量,采样质量
-    [settings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
+    [settings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
     recordermp3 = [[AVAudioRecorder alloc] initWithURL:recordedFile settings:settings error:nil];
     [recordermp3 prepareToRecord];
     [recordermp3 record];
+
+}
+
+-(void)startBackgroundRecordWAV {
+//    NSString * path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/downloadFile.caf"];
+//    self.recordTempFileURL = [[NSURL alloc] initFileURLWithPath:path];
+//    NSDictionary *settings = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
+//                               AVSampleRateKey: @8000.00f,
+//                               AVNumberOfChannelsKey: @1,
+//                               AVLinearPCMBitDepthKey: @16,
+//                               AVLinearPCMIsNonInterleaved: @NO,
+//                               AVLinearPCMIsFloatKey: @NO,
+//                               AVLinearPCMIsBigEndianKey: @NO};
+//    
+//    
+//    
+//    
+//    NSError *error;
+//    self.recorderWav = [[AVAudioRecorder alloc] initWithURL:self.recordTempFileURL settings:settings error:&error];
+//    
+//    [self.recorderWav prepareToRecord];
+//    
+//    self.isRecordingWav = [self.recorderWav record];
+    
+    int x = arc4random() % 100000;
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
+    
+    [[EMCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
+     {
+         if (error) {
+             NSLog(@"%@", @"message.startRecordFail");
+         }
+     }];
+    
 }
 
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
@@ -693,6 +743,10 @@
             }if (backgroundSoundType == 2) {
                 saveNameStr = [NSString stringWithFormat:@"%@.mp3",inSaveNameStr];
                 saveNameMp3 = [NSString stringWithFormat:@"%@",inSaveNameStr];
+            } else if (backgroundSoundType == 3) {
+                
+                saveNameStr = [NSString stringWithFormat:@"%@.wav",inSaveNameStr];
+                self.saveNameWav = [NSString stringWithFormat:@"%@",inSaveNameStr];
             }
             if (saveNameStr != nil) {
                 if ([self isfileExisted:saveNameStr]) { //已经存在 则提示是否进行替换
@@ -714,11 +768,16 @@
         }
         
     }
-    if (backgroundSoundType == 0 || backgroundSoundType == 1) {
+    if (backgroundSoundType == 0) {
         //开始后台录音
+//        [self open_startBackgroundRecord:inArguments];
+        [self startBackgroundRecordWAV];
+    } else if (backgroundSoundType == 1) {
         [self open_startBackgroundRecord:inArguments];
-    } else {
+    }else if (backgroundSoundType == 2){
         [self startBackgroundRecordMP3];
+    } else if (backgroundSoundType == 3) { //wav
+        [self startBackgroundRecordWAV];
     }
     
 }
@@ -729,6 +788,23 @@
 }
 
 
+- (BOOL)convertWAV:(NSString *)wavFilePath
+             toAMR:(NSString *)amrFilePath {
+    BOOL ret = NO;
+    BOOL isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:wavFilePath];
+    if (isFileExists) {
+        [EMVoiceConverter wavToAmr:wavFilePath amrSavePath:amrFilePath];
+        isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:amrFilePath];
+        if (!isFileExists) {
+            
+        } else {
+            ret = YES;
+        }
+    }
+    
+    return ret;
+}
+
 -(void)stopBackgroundRecord:(NSMutableArray *)inArguments {
     if (backgroundSoundType==2) {
         [recordermp3 stop];
@@ -738,7 +814,60 @@
         [self audio_PCMtoMP3];
         NSString *mp3FilePath=[self getRecordFileName:saveNameMp3 with_format:@"mp3"];
         [self jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:mp3FilePath];
-    } else {
+    } else if (backgroundSoundType == 3) {
+        
+//        if (self.isRecordingWav) {
+//            NSData *recordedData =[NSData dataWithContentsOfURL:self.recordTempFileURL];
+//            NSString *wavFilePath=[self getRecordFileName:self.saveNameWav with_format:@"wav"];
+//            
+//            [recordedData writeToFile:wavFilePath atomically:NO];
+//            
+//            
+//            
+//            //录音格式转换，从wav转为amr
+//            NSString *amrFilePath = [[wavFilePath stringByDeletingPathExtension]
+//                                     stringByAppendingPathExtension:@"amr"];
+//            BOOL convertResult = [self convertWAV:wavFilePath toAMR:amrFilePath];
+//            if (convertResult) {
+//                // 删除录的wav
+//                NSFileManager *fm = [NSFileManager defaultManager];
+//                [fm removeItemAtPath:wavFilePath error:nil];
+//            }
+//            
+//            [self.recorderWav stop];
+//            
+//            [self jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:amrFilePath];
+//        }
+//        self.isRecordingWav = NO;
+        
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
+            if (!error) {
+                [weakSelf jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:recordPath];
+            }
+            else {
+            
+            }
+        }];
+    }
+    else {
+        
+        if (backgroundSoundType == 0) {
+            __weak typeof(self) weakSelf = self;
+            
+            [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
+                if (!error) {
+                    [weakSelf jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:recordPath];
+                }
+                else {
+                    
+                }
+            }];
+            return;
+        }
+        
         if (rType == 0) {
             PlayerManager *manager = [PlayerManager getInstance];
             if (manager.recordStatus==YES) {

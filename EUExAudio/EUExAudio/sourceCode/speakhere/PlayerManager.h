@@ -66,6 +66,9 @@
 - (BOOL)playStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc;
 -(void)pausePlay;
 
+- (BOOL)playNewStop:(NSString*)fileName euexObjc:(EUExAudio *)ineuexBjc;
+-(void)pausePlayNew;
+
 -(id)init;
 
 @end
