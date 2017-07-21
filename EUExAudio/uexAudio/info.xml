@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexAudio" version="3.0.21" build="21">
-    <info>21: 重构amr录音及播放</info>
+  <plugin uexName="uexAudio" version="3.0.21.2" build="23">
+    <info>21.2: 修复第一次播放时光感开启失败的BUG</info>
+    <build>21.1: 麦克风权限检测</build>
+    <build>21: 重构amr录音及播放</build>
     <build>20: 支持录制wav</build>
     <build>19: IDE证书更新</build>
     <build>18: 修改播放amr格式时无回调的BUG</build>

@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  EUExAudio
+
+  Created by Jay on 2017/7/20.
+  Copyright © 2017年 xll. All rights reserved.
+*/
+
+"mcAlert" = "Record failed.Please allow ECOPOWER to visit your microphone in \"Settings-Privacy-Microphone\"";

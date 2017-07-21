@@ -87,6 +87,79 @@
 //    [super dealloc];
 //}
 
+#pragma mark - 麦克风权限判断
+- (BOOL)judgeMc
+{
+    self.isJudgeMc = NO;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    switch (authStatus) {
+        case AVAuthorizationStatusNotDetermined://没有询问是否开启麦克风
+        {
+            __weak EUExAudio *weakSelf = self;
+            //第一次询问用户是否进行授权
+            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
+                if (granted) {
+                    // Microphone enabled code
+                    weakSelf.isJudgeMc = YES;
+                }
+                else {
+                    // Microphone disabled code
+                    weakSelf.isJudgeMc = NO;
+                }
+            }];
+        }
+            break;
+        case AVAuthorizationStatusRestricted:
+            //未授权，家长限制
+        {
+            self.isJudgeMc = NO;
+            
+            NSString *okButtonTitle = @"OK";
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action){
+                                                               
+                                                           }];
+            
+            [alertController addAction:okCtrl];
+            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+            
+        }
+            break;
+        case AVAuthorizationStatusDenied:
+            //用户未授权
+        {
+            self.isJudgeMc = NO;
+            
+            NSString *okButtonTitle = @"OK";
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action){
+                                                               
+                                                           }];
+            
+            [alertController addAction:okCtrl];
+            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+            
+        }
+            break;
+        case AVAuthorizationStatusAuthorized:
+            //用户授权
+            self.isJudgeMc = YES;
+            break;
+        default:
+            break;
+    }
+    
+    return self.isJudgeMc;
+}
 
 -(void)open:(NSMutableArray *)inArguments {
     NSString *inPath = [inArguments objectAtIndex:0];
@@ -146,11 +219,21 @@
     if ([inArguments count] > 0) {
         self.runloopTime = [[inArguments objectAtIndex:0] integerValue];
     }
+    
     if (isNetResource) {
         isPlayed = YES;
         isNeedCloseTimerAutomatic = YES;
         [self playAudio:btnAudio];
         musicTimer =[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(upProgress) userInfo:nil repeats:YES];
+        
+        if (self.needCall==true)
+        {
+            //切换为听筒播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        }else{
+            //切换为扬声器播放
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        }
     } else {
         //
         NSInteger inRunloopMode = [[inArguments objectAtIndex:0] intValue];
@@ -163,6 +246,20 @@
 //            [amrMgr playStop:amrPath  euexObjc:self];
             
             [amrMgr playNewStop:amrPath euexObjc:self];
+            
+            if (self.needCall==true)
+            {
+                //切换为听筒播放
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+            }else{
+                //切换为扬声器播放
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+            }
+            
+            if (self.isProximity && [[UIDevice currentDevice] proximityState] == NO) {
+                [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+            }
+            
             return;
         }
         if (pfPlayer) {
@@ -177,6 +274,15 @@
                 if ([pfPlayer playMusic] == NO) {
                     [super jsFailedWithOpId:0 errorCode:1010203 errorDes:UEX_ERROR_DESCRIBE_FILE_FORMAT];
                 }
+            }
+            
+            if (self.needCall==true)
+            {
+                //切换为听筒播放
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+            }else{
+                //切换为扬声器播放
+                [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
             }
         }
     }
@@ -329,12 +435,13 @@
     if ([string isEqualToString:@"1"]) {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximityStateChanged:) name:UIDeviceProximityStateDidChangeNotification object:nil];
+        self.isProximity = 1;
     }
     else
     {
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
-        
+        self.isProximity = 0;
     }
     
 }
@@ -461,6 +568,13 @@
 }
 
 -(void)record:(NSMutableArray *)inArguments {
+    
+    //麦克风权限判断
+    BOOL isUseMc = [self judgeMc];
+    if (!isUseMc) {
+        return;
+    }
+    
     //指定文件名 判断该文件是否存在 如果存在则提示用户
     if ([inArguments count] >= 2) {
         int soundType = [[inArguments objectAtIndex:0] intValue];
@@ -573,6 +687,13 @@
 }
 
 -(void)open_startBackgroundRecord:(NSMutableArray *)inArguments{
+    
+    //麦克风权限判断
+    BOOL isUseMc = [self judgeMc];
+    if (!isUseMc) {
+        return;
+    }
+    
     session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [session setActive:YES error:nil];
@@ -726,6 +847,13 @@
 }
 
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
+    
+    //麦克风权限判断
+    BOOL isUseMc = [self judgeMc];
+    if (!isUseMc) {
+        return;
+    }
+    
     //指定文件名 判断该文件是否存在 如果存在则提示用户
     backgroundSoundType = [[inArguments objectAtIndex:0]intValue];
     if ([inArguments count] >= 2) {
@@ -806,6 +934,13 @@
 }
 
 -(void)stopBackgroundRecord:(NSMutableArray *)inArguments {
+    
+    //麦克风权限判断
+    BOOL isUseMc = [self judgeMc];
+    if (!isUseMc) {
+        return;
+    }
+    
     if (backgroundSoundType==2) {
         [recordermp3 stop];
         if(recordermp3) {
@@ -1133,6 +1268,8 @@
     
 }
 
+#pragma mark - 设置声音播放模式
+//播放模式:0为正常扩音器模式;1为听筒模式;
 -(void)setPlayMode:(NSMutableArray*)inArguments
 {
     NSDictionary * dict = [[inArguments objectAtIndex:0] JSONValue];
