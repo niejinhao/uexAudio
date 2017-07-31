@@ -95,19 +95,20 @@
     switch (authStatus) {
         case AVAuthorizationStatusNotDetermined://没有询问是否开启麦克风
         {
-            __weak EUExAudio *weakSelf = self;
-            //第一次询问用户是否进行授权
-            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
-                if (granted) {
-                    // Microphone enabled code
-                    weakSelf.isJudgeMc = YES;
-                }
-                else {
-                    // Microphone disabled code
-                    weakSelf.isJudgeMc = NO;
-                }
-            }];
+//            __weak EUExAudio *weakSelf = self;
+//            //第一次询问用户是否进行授权
+//            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+//                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
+//                if (granted) {
+//                    // Microphone enabled code
+//                    weakSelf.isJudgeMc = YES;
+//                }
+//                else {
+//                    // Microphone disabled code
+//                    weakSelf.isJudgeMc = NO;
+//                }
+//            }];
+            self.isJudgeMc = YES;
         }
             break;
         case AVAuthorizationStatusRestricted:
@@ -115,18 +116,18 @@
         {
             self.isJudgeMc = NO;
             
-            NSString *okButtonTitle = @"OK";
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action){
-                                                               
-                                                           }];
-            
-            [alertController addAction:okCtrl];
-            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+//            NSString *okButtonTitle = @"OK";
+//            
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+//                                                             style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction * _Nonnull action){
+//                                                               
+//                                                           }];
+//            
+//            [alertController addAction:okCtrl];
+//            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
             
         }
             break;
@@ -135,18 +136,18 @@
         {
             self.isJudgeMc = NO;
             
-            NSString *okButtonTitle = @"OK";
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action){
-                                                               
-                                                           }];
-            
-            [alertController addAction:okCtrl];
-            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+//            NSString *okButtonTitle = @"OK";
+//            
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+//                                                             style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction * _Nonnull action){
+//                                                               
+//                                                           }];
+//            
+//            [alertController addAction:okCtrl];
+//            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
             
         }
             break;
@@ -569,9 +570,14 @@
 
 -(void)record:(NSMutableArray *)inArguments {
     
-    //麦克风权限判断
-    BOOL isUseMc = [self judgeMc];
-    if (!isUseMc) {
+    //录音权限检测
+    BOOL isPicOK = [self judgeMc];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"调用麦克风失败，请在 设置-隐私-麦克风 中开启权限",@"info", nil];
+        NSString *dataStr = [dicResult JSONFragment];
+        NSString *jsStr = [NSString stringWithFormat:@"if(uexAudio.onPermissionDenied){uexAudio.onPermissionDenied(%@)}",dataStr];
+        //回调给当前网页
+        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
         return;
     }
     
@@ -688,9 +694,14 @@
 
 -(void)open_startBackgroundRecord:(NSMutableArray *)inArguments{
     
-    //麦克风权限判断
-    BOOL isUseMc = [self judgeMc];
-    if (!isUseMc) {
+    //录音权限检测
+    BOOL isPicOK = [self judgeMc];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"调用麦克风失败，请在 设置-隐私-麦克风 中开启权限",@"info", nil];
+        NSString *dataStr = [dicResult JSONFragment];
+        NSString *jsStr = [NSString stringWithFormat:@"if(uexAudio.onPermissionDenied){uexAudio.onPermissionDenied(%@)}",dataStr];
+        //回调给当前网页
+        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
         return;
     }
     
@@ -840,7 +851,7 @@
     [[EMCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
      {
          if (error) {
-             NSLog(@"%@", @"message.startRecordFail");
+             NSLog(@"%@,error = %@", @"message.startRecordFail",error);
          }
      }];
     
@@ -848,11 +859,18 @@
 
 -(void)startBackgroundRecord:(NSMutableArray *)inArguments {
     
-    //麦克风权限判断
-    BOOL isUseMc = [self judgeMc];
-    if (!isUseMc) {
-        return;
-    }
+    NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> inArguments=%@ ",inArguments);
+    
+    //录音权限检测
+//    BOOL isPicOK = [self judgeMc];
+//    if (!isPicOK) {
+//        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"调用麦克风失败，请在 设置-隐私-麦克风 中开启权限",@"info", nil];
+//        NSString *dataStr = [dicResult JSONFragment];
+//        NSString *jsStr = [NSString stringWithFormat:@"if(uexAudio.onPermissionDenied){uexAudio.onPermissionDenied(%@)}",dataStr];
+//        //回调给当前网页
+//        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
+//        return;
+//    }
     
     //指定文件名 判断该文件是否存在 如果存在则提示用户
     backgroundSoundType = [[inArguments objectAtIndex:0]intValue];
@@ -866,6 +884,7 @@
         if ([inSaveNameStr length] > 0) {
             if (backgroundSoundType == 0) {
                 saveNameStr = [NSString stringWithFormat:@"%@.amr",inSaveNameStr];
+                NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> amr格式 ");
             } if (backgroundSoundType == 1){
                 saveNameStr = [NSString stringWithFormat:@"%@.caf",inSaveNameStr];
             }if (backgroundSoundType == 2) {
@@ -878,6 +897,7 @@
             }
             if (saveNameStr != nil) {
                 if ([self isfileExisted:saveNameStr]) { //已经存在 则提示是否进行替换
+                    NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>>音频文件路径已存在");
                     if (self.alert_Arguments == nil) {
                         self.alert_Arguments = [NSMutableDictionary dictionaryWithCapacity:3];
                     }
@@ -899,15 +919,19 @@
     if (backgroundSoundType == 0) {
         //开始后台录音
 //        [self open_startBackgroundRecord:inArguments];
+        NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> type=0 ==>>startBackgroundRecordWAV");
         [self startBackgroundRecordWAV];
     } else if (backgroundSoundType == 1) {
+        NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> type=1 ==>>open_startBackgroundRecord:inArguments");
         [self open_startBackgroundRecord:inArguments];
     }else if (backgroundSoundType == 2){
+        NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> type=2 ==>>startBackgroundRecordMP3");
         [self startBackgroundRecordMP3];
     } else if (backgroundSoundType == 3) { //wav
+        NSLog(@"AppCan3.0==>>uexAudio==>>startBackgroundRecord==>> type=3 ==>>startBackgroundRecordWAV");
         [self startBackgroundRecordWAV];
     }
-    
+
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
@@ -935,11 +959,18 @@
 
 -(void)stopBackgroundRecord:(NSMutableArray *)inArguments {
     
-    //麦克风权限判断
-    BOOL isUseMc = [self judgeMc];
-    if (!isUseMc) {
-        return;
-    }
+    NSLog(@"AppCan3.0==>>uexAudio==>> stopBackgroundRecord ");
+    
+    //录音权限检测
+//    BOOL isPicOK = [self judgeMc];
+//    if (!isPicOK) {
+//        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"调用麦克风失败，请在 设置-隐私-麦克风 中开启权限",@"info", nil];
+//        NSString *dataStr = [dicResult JSONFragment];
+//        NSString *jsStr = [NSString stringWithFormat:@"if(uexAudio.onPermissionDenied){uexAudio.onPermissionDenied(%@)}",dataStr];
+//        //回调给当前网页
+//        [EUtility brwView:self.meBrwView evaluateScript:jsStr];
+//        return;
+//    }
     
     if (backgroundSoundType==2) {
         [recordermp3 stop];
@@ -981,23 +1012,28 @@
         [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
             if (!error) {
                 [weakSelf jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:recordPath];
+                NSLog(@"AppCan3.0==>>uexAudio==>>stopBackgroundRecord==>> cbBackgroundRecord完毕 ");
             }
             else {
-            
+            NSLog(@"AppCan3.0==>>uexAudio==>>stopBackgroundRecord==>> error=%@ ",error);
             }
         }];
     }
     else {
         
         if (backgroundSoundType == 0) {
+            
+            NSLog(@"AppCan3.0==>>uexAudio==>>stopBackgroundRecord==>> backgroundSoundType == 0 ");
+            
             __weak typeof(self) weakSelf = self;
             
             [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
                 if (!error) {
                     [weakSelf jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:recordPath];
+                    NSLog(@"AppCan3.0==>>uexAudio1==>>stopBackgroundRecord==>> cbBackgroundRecord完毕 ");
                 }
                 else {
-                    
+                    NSLog(@"AppCan3.0==>>uexAudio1==>>stopBackgroundRecord==>> error=%@ ",error);
                 }
             }];
             return;
@@ -1008,6 +1044,7 @@
             if (manager.recordStatus==YES) {
                 [manager stopRecord];
                 [self jsSuccessWithName:@"uexAudio.cbBackgroundRecord" opId:0 dataType:UEX_CALLBACK_DATATYPE_TEXT strData:recordFilePath];
+                NSLog(@"AppCan3.0==>>uexAudio2==>>stopBackgroundRecord==>> cbBackgroundRecord完毕 ");
             }
         } else {
             if (currentRecorder) {
@@ -1015,6 +1052,7 @@
                     [currentRecorder stop];
                 }
             }
+            NSLog(@"AppCan3.0==>>uexAudio2==>>stopBackgroundRecord==>> cbBackgroundRecord完毕 ");
         }
         
     }
