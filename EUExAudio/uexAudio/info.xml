@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexAudio" version="4.0.3" build="3">
-  	<info>3: 适配融云插件，支持录音wav</info>
+  <plugin uexName="uexAudio" version="4.0.4" build="4">
+  	<info>4: 修复播放mp3崩溃问题</info>
+  	<build>3: 适配融云插件，支持录音wav</build>
   	<build>2: 修复录音文件名设置无效的问题</build>
   	<build>1: 修复音效池接口内存泄露问题</build>
     <build>0: 音乐播放插件</build>

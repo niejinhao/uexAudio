@@ -89,7 +89,11 @@
                 isAmr = YES;
                 self.amrPath = absPath;
             }else{
-                pfPlayer = [[PFMusicPlayer alloc] init];
+                
+                if (pfPlayer == nil) {
+                    pfPlayer = [[PFMusicPlayer alloc] init];
+                }
+                
                 if (![pfPlayer openWithPath:absPath euexObj:self]) {
                     //[self jsFailedWithOpId:0 errorCode:1010104 errorDes:UEX_ERROR_DESCRIBE_FILE_OPEN];
                 }
@@ -211,6 +215,7 @@
             }
         }
     }
+    
 }
 
 -(void)pause:(NSMutableArray *)inArguments
