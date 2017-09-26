@@ -76,6 +76,6 @@
 
 @property(nonatomic,assign)BOOL needCall;
 
-
+@property(nonatomic,assign)BOOL isJudgeMc;//是否拥有麦克风权限
 
 @end
