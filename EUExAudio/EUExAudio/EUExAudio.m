@@ -62,6 +62,80 @@
     self.recordTempFileURL = nil;
 }
 
+#pragma mark - 麦克风权限判断
+- (BOOL)judgeMc
+{
+    self.isJudgeMc = NO;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    switch (authStatus) {
+        case AVAuthorizationStatusNotDetermined://没有询问是否开启麦克风
+        {
+            //            __weak EUExAudio *weakSelf = self;
+            //            //第一次询问用户是否进行授权
+            //            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+            //                // CALL YOUR METHOD HERE - as this assumes being called only once from user interacting with permission alert!
+            //                if (granted) {
+            //                    // Microphone enabled code
+            //                    weakSelf.isJudgeMc = YES;
+            //                }
+            //                else {
+            //                    // Microphone disabled code
+            //                    weakSelf.isJudgeMc = NO;
+            //                }
+            //            }];
+            self.isJudgeMc = YES;
+        }
+            break;
+        case AVAuthorizationStatusRestricted:
+            //未授权，家长限制
+        {
+            self.isJudgeMc = NO;
+            
+            //            NSString *okButtonTitle = @"OK";
+            //
+            //            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+            //
+            //            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+            //                                                             style:UIAlertActionStyleDefault
+            //                                                           handler:^(UIAlertAction * _Nonnull action){
+            //
+            //                                                           }];
+            //
+            //            [alertController addAction:okCtrl];
+            //            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+            
+        }
+            break;
+        case AVAuthorizationStatusDenied:
+            //用户未授权
+        {
+            self.isJudgeMc = NO;
+            
+            //            NSString *okButtonTitle = @"OK";
+            //
+            //            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[EUtility uexPlugin:@"uexAudio" localizedString:@"mcAlert",@""] preferredStyle:UIAlertControllerStyleAlert];
+            //
+            //            UIAlertAction *okCtrl = [UIAlertAction actionWithTitle:okButtonTitle
+            //                                                             style:UIAlertActionStyleDefault
+            //                                                           handler:^(UIAlertAction * _Nonnull action){
+            //
+            //                                                           }];
+            //            
+            //            [alertController addAction:okCtrl];
+            //            [EUtility brwView:self.meBrwView presentModalViewController:alertController animated:NO];
+            
+        }
+            break;
+        case AVAuthorizationStatusAuthorized:
+            //用户授权
+            self.isJudgeMc = YES;
+            break;
+        default:
+            break;
+    }
+    
+    return self.isJudgeMc;
+}
 
 -(void)open:(NSMutableArray *)inArguments {
     ACArgsUnpack(NSString *inPath) = inArguments;
@@ -518,6 +592,16 @@
 }
 
 -(void)open_startBackgroundRecord:(NSMutableArray *)inArguments{
+    
+    //录音权限检测
+    BOOL isPicOK = [self judgeMc];
+    if (!isPicOK) {
+        NSDictionary *dicResult = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"errCode",@"调用麦克风失败，请在 设置-隐私-麦克风 中开启权限",@"info", nil];
+        NSString *dataStr = [dicResult ac_JSONFragment];
+        [self.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.onPermissionDenied" arguments:ACArgsPack(dataStr)];
+        return;
+    }
+    
     session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [session setActive:YES error:nil];
