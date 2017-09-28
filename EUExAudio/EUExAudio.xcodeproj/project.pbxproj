@@ -80,12 +80,23 @@
 		5A9E68B018A9CEE300CEF1EA /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E689418A9CEE300CEF1EA /* AQRecorder.mm */; };
 		5A9E68B318A9CEE300CEF1EA /* PlayerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A9E689F18A9CEE300CEF1EA /* PlayerManager.mm */; };
 		5AA8D497188F967300C854BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA8D496188F967300C854BC /* Foundation.framework */; };
+		69C154D61F20A92800349108 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C154D81F20A92800349108 /* Localizable.strings */; };
 		F7A4F4B519C029F600B4C716 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A4F4B419C029F600B4C716 /* AVFoundation.framework */; };
 		F7A4F4B719C02A0300B4C716 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A4F4B619C02A0300B4C716 /* CoreGraphics.framework */; };
 		F7A4F4B919C02A1300B4C716 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A4F4B819C02A1300B4C716 /* UIKit.framework */; };
 		F7A53BE819C687A800CA9EEE /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A53BE719C687A800CA9EEE /* libmp3lame.a */; };
 		F7E9D2801AB7BA9A00F17A9C /* RecorderMp3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E9D27F1AB7BA9A00F17A9C /* RecorderMp3Controller.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		69C154F31F20BBA500349108 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AA8D48B188F967200C854BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42EE5FDA1C2A43D7007CFCB4;
+			remoteInfo = uexAudioBundle;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5AA8D491188F967300C854BC /* CopyFiles */ = {
@@ -229,6 +240,8 @@
 		5AA8D49A188F967300C854BC /* EUExAudio-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EUExAudio-Prefix.pch"; sourceTree = "<group>"; };
 		5AA8D4BD188F970500C854BC /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
 		5AA8D4BE188F970500C854BC /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
+		69C154D71F20A92800349108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69C154D91F20A95A00349108 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		F7A4F4B119C0260F00B4C716 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		F7A4F4B419C029F600B4C716 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F7A4F4B619C02A0300B4C716 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -409,6 +422,7 @@
 				42EE60091C2A44AA007CFCB4 /* plugin_video_play_normal.png */,
 				42EE600A1C2A44AA007CFCB4 /* plugin_video_play_selected.png */,
 				42EE600B1C2A44AA007CFCB4 /* title.png */,
+				69C154D81F20A92800349108 /* Localizable.strings */,
 			);
 			path = uexAudioBundle;
 			sourceTree = "<group>";
@@ -596,6 +610,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				69C154F41F20BBA500349108 /* PBXTargetDependency */,
 			);
 			name = EUExAudio;
 			productName = EUExAudio;
@@ -622,6 +637,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 5AA8D48A188F967200C854BC;
 			productRefGroup = 5AA8D494188F967300C854BC /* Products */;
@@ -639,6 +655,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C154D61F20A92800349108 /* Localizable.strings in Resources */,
 				42EE60151C2A44AA007CFCB4 /* plugin_audio_recorder_bg_dot.png in Resources */,
 				42EE60201C2A44AA007CFCB4 /* plugin_audio_recorder_status.png in Resources */,
 				42EE60331C2A44AA007CFCB4 /* plugin_video_play_disabled.png in Resources */,
@@ -732,6 +749,26 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		69C154F41F20BBA500349108 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42EE5FDA1C2A43D7007CFCB4 /* uexAudioBundle */;
+			targetProxy = 69C154F31F20BBA500349108 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		69C154D81F20A92800349108 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69C154D71F20A92800349108 /* en */,
+				69C154D91F20A95A00349108 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		42EE5FDE1C2A43D7007CFCB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -799,6 +836,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -847,6 +885,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

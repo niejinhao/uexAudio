@@ -55,7 +55,6 @@
     AVAudioRecorder *recordermp3;
     NSString *saveNameMp3;
     
-
 }
 @property (nonatomic , retain) AVPlayer *avPlayer;
 @property (nonatomic , retain) NSURL *avURL;
@@ -82,6 +81,10 @@
 @property(nonatomic,retain)UISlider * sliderse;
 @property(nonatomic,retain)NSString * musicUrl;
 
-@property(nonatomic,assign)int needCall;
+@property(nonatomic,assign)int needCall;//播放模式:0为正常扩音器模式;1为听筒模式;
+//光感，使用近距离传感器，当接近耳朵时，调用听筒模式，远离时采用功放模式（也可以自定义）
+@property(nonatomic,assign)int isProximity;//是否开启感应，1为开启，0为关闭
+
+@property(nonatomic,assign)BOOL isJudgeMc;//是否拥有麦克风权限
 
 @end
