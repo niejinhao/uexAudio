@@ -794,56 +794,60 @@
 -(void)stopBackgroundRecord:(NSMutableArray *)inArguments {
     ACArgsUnpack(ACJSFunctionRef *cb) = inArguments;
 
-    switch (backgroundSoundType) {
-        case 0:{
-            PlayerManager *manager = [PlayerManager getInstance];
-            if (manager.recordStatus == YES) {
-                [manager stopRecord];
-                [self.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.cbBackgroundRecord" arguments:ACArgsPack(@0,@0,recordFilePath)];
-                [cb executeWithArguments:ACArgsPack(recordFilePath)];
-            }
-            break;
-            
-        }
-        case 1:{
-            if (currentRecorder) {
-                if ([currentRecorder isRecording]) {
-                    self.cbBackgroundRecord = cb;
-                    [currentRecorder stop];
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    
+    if (authStatus == AVAuthorizationStatusAuthorized)
+    {
+        switch (backgroundSoundType) {
+            case 0:{
+                PlayerManager *manager = [PlayerManager getInstance];
+                if (manager.recordStatus == YES) {
+                    [manager stopRecord];
+                    [self.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.cbBackgroundRecord" arguments:ACArgsPack(@0,@0,recordFilePath)];
+                    [cb executeWithArguments:ACArgsPack(recordFilePath)];
                 }
-            }
-            break;
-            
-        }
-        case 2:{
-            [recordermp3 stop];
-            if(recordermp3) {
-                recordermp3 = nil;
-            }
-            [self audio_PCMtoMP3];
-            NSString *mp3FilePath=[self getRecordFileName:saveNameMp3 with_format:@"mp3"];
-            [self.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.cbBackgroundRecord" arguments:ACArgsPack(@0,@0,mp3FilePath)];
-            [cb executeWithArguments:ACArgsPack(recordFilePath)];
-            break;
-        }
-        case 3: {
-            
-            if (self.isRecordingWav) {
-                NSData *recordedData =[NSData dataWithContentsOfURL:self.recordTempFileURL];
-                NSString *wavFilePath=[self getRecordFileName:saveNameWav with_format:@"wav"];
+                break;
                 
-                [recordedData writeToFile:wavFilePath atomically:NO];
-                [self.recorderWav stop];
-                [cb executeWithArguments:ACArgsPack(recordFilePath)];
             }
-            self.isRecordingWav = NO;
-            
+            case 1:{
+                if (currentRecorder) {
+                    if ([currentRecorder isRecording]) {
+                        self.cbBackgroundRecord = cb;
+                        [currentRecorder stop];
+                    }
+                }
+                break;
+                
+            }
+            case 2:{
+                [recordermp3 stop];
+                if(recordermp3) {
+                    recordermp3 = nil;
+                }
+                [self audio_PCMtoMP3];
+                NSString *mp3FilePath=[self getRecordFileName:saveNameMp3 with_format:@"mp3"];
+                [self.webViewEngine callbackWithFunctionKeyPath:@"uexAudio.cbBackgroundRecord" arguments:ACArgsPack(@0,@0,mp3FilePath)];
+                [cb executeWithArguments:ACArgsPack(recordFilePath)];
+                break;
+            }
+            case 3: {
+                
+                if (self.isRecordingWav) {
+                    NSData *recordedData =[NSData dataWithContentsOfURL:self.recordTempFileURL];
+                    NSString *wavFilePath=[self getRecordFileName:saveNameWav with_format:@"wav"];
+                    
+                    [recordedData writeToFile:wavFilePath atomically:NO];
+                    [self.recorderWav stop];
+                    [cb executeWithArguments:ACArgsPack(recordFilePath)];
+                }
+                self.isRecordingWav = NO;
+                
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
     }
-
 }
 
 #pragma mark systemsound
