@@ -649,7 +649,7 @@ void ASReadStreamCallBack
 		
 		//
 		// Set our callback function to receive the data
-		//
+		// 设置我们的回调函数来接收数据。
 		CFStreamClientContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
 		CFReadStreamSetClient(
 			stream,
@@ -657,6 +657,7 @@ void ASReadStreamCallBack
 			ASReadStreamCallBack,
 			&context);
 		CFReadStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
+        
 	}
 	
 	return YES;
@@ -740,7 +741,7 @@ void ASReadStreamCallBack
 	{
 		isRunning = [[NSRunLoop currentRunLoop]
 			runMode:NSDefaultRunLoopMode
-			beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.25]];
+			beforeDate:[NSDate dateWithTimeIntervalSinceNow:5]];
 		
 		@synchronized(self) {
 			if (seekWasRequested) {
@@ -1158,11 +1159,15 @@ cleanup:
 	}
 	
 	if (eventType == kCFStreamEventErrorOccurred)
-	{
+	{//在流上有错误发生
 		[self failWithErrorCode:AS_AUDIO_DATA_NOT_FOUND];
 	}
 	else if (eventType == kCFStreamEventEndEncountered)
-	{
+	{//到达了流的结束位置
+        /*
+         *当回调函数接收到 kCFStreamEventEndEncountered 事件代码时，它会调用它自己的函数(reportCompletion) 处理数据结尾，然后调用函数 CFReadStreamClose 关闭操作流和 CFRelease 函数释放操作流引用。调用 CFReadStreamClose 会导致操作流被取消调度，因此回调函数不需要从循环中删除操作流。
+         */
+        
 		@synchronized(self)
 		{
 			if ([self isFinishing])
@@ -1189,6 +1194,7 @@ cleanup:
 
 		@synchronized(self)
 		{
+            //通常在文本的最后存在此字符表示资料结束。
 			if (state == AS_WAITING_FOR_DATA)
 			{
 				[self failWithErrorCode:AS_AUDIO_DATA_NOT_FOUND];
@@ -1231,7 +1237,7 @@ cleanup:
 		}
 	}
 	else if (eventType == kCFStreamEventHasBytesAvailable)
-	{
+	{//有数据可以读取
 		if (!httpHeaders)
 		{
 			CFTypeRef message =
@@ -1256,8 +1262,8 @@ cleanup:
 			// Attempt to guess the file type from the URL. Reading the MIME type
 			// from the httpHeaders might be a better approach since lots of
 			// URL's don't have the right extension.
-			//
-			// If you have a fixed file-type, you may want to hardcode this.
+
+            // If you have a fixed file-type, you may want to hardcode this.
 			//
 			AudioFileTypeID fileTypeHint =
 				[AudioStreamer hintForFileExtension:[[url path] pathExtension]];
@@ -1300,7 +1306,7 @@ cleanup:
 
 		if (discontinuous)
 		{
-			err = AudioFileStreamParseBytes(audioFileStream, length, bytes, kAudioFileStreamParseFlag_Discontinuity);
+			err = AudioFileStreamParseBytes(audioFileStream, (int)length, bytes, kAudioFileStreamParseFlag_Discontinuity);
 			if (err)
 			{
 				[self failWithErrorCode:AS_FILE_STREAM_PARSE_BYTES_FAILED];
@@ -1309,7 +1315,7 @@ cleanup:
 		}
 		else
 		{
-			err = AudioFileStreamParseBytes(audioFileStream, length, bytes, 0);
+			err = AudioFileStreamParseBytes(audioFileStream, (int)length, bytes, 0);
 			if (err)
 			{
 				[self failWithErrorCode:AS_FILE_STREAM_PARSE_BYTES_FAILED];
@@ -1344,11 +1350,11 @@ cleanup:
 
 		// enqueue buffer
 		AudioQueueBufferRef fillBuf = audioQueueBuffer[fillBufferIndex];
-		fillBuf->mAudioDataByteSize = bytesFilled;
+		fillBuf->mAudioDataByteSize = (int)bytesFilled;
 		
 		if (packetsFilled)
 		{
-			err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, packetsFilled, packetDescs);
+			err = AudioQueueEnqueueBuffer(audioQueue, fillBuf, (int)packetsFilled, packetDescs);
 		}
 		else
 		{

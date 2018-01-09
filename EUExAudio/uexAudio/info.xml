@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexAudio" version="4.0.5" build="5">
-  	<info>5: 添加权限检测回调onPermissionDenied</info>
+  <plugin uexName="uexAudio" version="4.0.5.2" build="7">
+    <info>7: 修改runloop循环时间，解决无法播放问题</info>
+  	<build>6: 首次进行权限确认，不进行回调</build>
+    <build>5: 添加权限检测回调onPermissionDenied</build>
     <build>4: 修复播放mp3崩溃问题</build>
   	<build>3: 适配融云插件，支持录音wav</build>
   	<build>2: 修复录音文件名设置无效的问题</build>
